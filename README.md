@@ -56,101 +56,27 @@ Nesta Sprint 3, ampliamos as funcionalidades, refinamos a interface e reforçamo
 
 ## Estrutura principal do Projeto
 
-challenge-sprint-03/
-├── public/
-│ ├── imgs/ # Logos, fotos de alunos e imagens de apoio
-│ └── videos/ # Vídeo do hero (Home)
-├── src/
-│ ├── components/ # Header, Footer, Modal, etc.
-│ ├── pages/ # Home, Agendar, Resultados, Contato
-│ ├── routes.tsx # Definição das rotas
-│ └── main.tsx # Ponto de entrada
-├── index.html
-└── tailwind.config.js
-
-yaml
-Copiar código
+chellange-sprint-03/
+├─ public/ # Imagens e Videos
+├─ src/
+│ ├─ components/ # Componentes reutilizáveis (Carousel, Footer, FormField, Header e Modal.)
+│ ├─ hooks/ # ( useForm. )
+│ ├─ pages/ # Páginas principais (Home, Agendar, Chat, Contato, Login e Resultados.)
+│ ├─ App.tsx # Componente raiz da aplicação
+│ ├─ main.tsx # Ponto de entrada da aplicação
+│ └─ index.css # Estilos globais (TailwindCSS)
+├─ package.json # Dependências e scripts
+└─ vite.config.ts # Configuração do Vite
 
 ---
 
-## Tecnologias Empregadas
+##  Instalação e Execução
 
-- **React + TypeScript** – construção de componentes e roteamento.
-- **Vite** – build rápido e leve.
-- **Tailwind CSS** – estilização moderna, responsiva e com tipografia personalizada (`Inter`/`Poppins`).
-- **Node.js & npm** – gerenciamento de dependências e scripts.
-- **JavaScript (React Hooks)** – controle de estado, modais, agendamento dinâmico.
+### 1️⃣ Pré-requisitos
+- [Node.js](https://nodejs.org/) (versão LTS recomendada)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
 
----
-
-## Padrões de Design e Usabilidade
-
-- **Responsividade total:**  
-  Layout fluido para desktop, tablet e smartphone.
-
-- **Acessibilidade:**  
-  Cores com alto contraste, navegação por teclado e fonte legível.
-
-- **Arquitetura limpa:**  
-  Separação de componentes, rotas bem definidas e CSS modular.
-
-- **Feedback claro:**  
-  Mensagens em tempo real para horários disponíveis, confirmações de agendamento e status de carregamento.
-
----
-
-## Time de Desenvolvimento
-
-| Nome | RM / Turma | LinkedIn | GitHub |
-|------|------------|---------|--------|
-| **Bruno Vinicius Barbosa** | 566366 / 1TDSPY | [LinkedIn](https://www.linkedin.com/in/brunovbarbosaa) | [GitHub](https://github.com/brunovinicius02) |
-| **João Pedro Bitencourt Goldoni** | 564339 / 1TDSPX | [LinkedIn](https://www.linkedin.com/in/joaopedrogoldoni) | [GitHub](https://github.com/JoaoPedroBitencourtGoldoni) |
-| **Marina Tamagnini Magalhães** | 561786 / 1TDSPX | [LinkedIn](https://www.linkedin.com/in/marina-t-36b14328b) | [GitHub](https://github.com/marina-2907/marina) |
-
----
-
-## Linha do Tempo / Principais Commits
-
-| Data       | Responsável | Descrição |
-|------------|------------|-----------|
-| 30/09/2024 | Marina     | Configuração inicial com React, Vite e Tailwind |
-| 07/09/2024 | Marina     | Criação do Header e Footer responsivos |
-| 12/09/2024 | Marina     | Página Home com vídeo e seções “Sobre Nós” e “Serviços” |
-| 18/09/2024 | Marina     | Formulário de agendamento com modalidades e validações |
-| 21/09/2024 | Marina     | Ajustes em rotas, modais e página de resultados |
-| 23/09/2024 | Equipe     | Revisão geral de design, acessibilidade e UX |
-| 24/09/2024 | Marina     | README final e otimizações de build |
-
-*(Datas ilustrativas: ajuste conforme o histórico real de commits.)*
-
----
-
-## Como Executar Localmente
-
-1. Clonar o repositório:
-   ```bash
-   git clone https://github.com/marina-2907/challenge-sprint-03.git
-   cd challenge-sprint-03
-Instalar dependências:
-
-bash
-Copiar código
-npm install
-Rodar o servidor local:
-
-bash
-Copiar código
-npm run dev
-Abra em http://localhost:5173.
-
-
-
-Considerações de Segurança e Limitações
--------------------------------------------------
-Este sistema não processa nem armazena dados reais de pacientes.
-
-Todos os dados e imagens são fictícios ou de domínio público.
-
-O projeto é exclusivamente acadêmico, não sendo um produto de produção hospitalar.
-
-
+### 2️⃣ Clonar o repositório
+```bash
+git clone https://github.com/marina-2907/chellange-sprint-03.git
+cd chellange-sprint-03

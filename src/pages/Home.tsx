@@ -42,7 +42,7 @@ export function Home() {
       </h2>
     )}
     <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-      Telemedicina IMREA + HC
+      TELEMEDICINA IMREA + HC
     </h1>
     <p className="text-lg md:text-xl text-gray-100 leading-relaxed">
       Atendimento online humanizado e seguro — agende consultas,
