@@ -1,44 +1,73 @@
-# 🌐 Challenge Sprint 03 – React + TypeScript + Vite
+# Telemedicina IMREA + HC
 
-Este projeto foi desenvolvido para o **Challenge Sprint 03** da FIAP, utilizando **React**, **TypeScript** e **Vite**.  
-O objetivo é criar uma aplicação moderna e performática, com Hot Module Replacement (HMR) e padronização de código via **ESLint**.
+Plataforma web para **agendamento de consultas**, **acesso a resultados** e **chat com profissionais**,  
+desenvolvida por alunos da **FIAP** com foco em **inovação, acessibilidade e humanização do atendimento**.
 
----
-
-## 🚀 Tecnologias Utilizadas
-
--  **React** – Biblioteca para criação de interfaces de usuário.
--  **TypeScript** – Superset do JavaScript que adiciona tipagem estática.
--  **Vite** – Bundler rápido para desenvolvimento com suporte a HMR.
--  **TailwindCSS** – Framework utilitário para estilização.
--  **ESLint** – Padronização e qualidade do código.
--  **React Router DOM** – Gerenciamento de rotas e navegação SPA.
+> Este projeto faz parte do Challenge FIAP e tem como objetivo facilitar e modernizar o acesso a serviços de saúde.
 
 ---
 
-## Estrutura do Projeto
+##  Funcionalidades
 
-chellange-sprint-03/
-├─ public/ # Imagens e Videos
-├─ src/
-│ ├─ components/ # Componentes reutilizáveis (Carousel, Footer, FormField, Header e Modal.)
-│ ├─ hooks/ # ( useForm. )
-│ ├─ pages/ # Páginas principais (Home, Agendar, Chat, Contato, Login e Resultados.)
-│ ├─ App.tsx # Componente raiz da aplicação
-│ ├─ main.tsx # Ponto de entrada da aplicação
-│ └─ index.css # Estilos globais (TailwindCSS)
-├─ package.json # Dependências e scripts
-└─ vite.config.ts # Configuração do Vite
+- **Agendamento Online** – Agende consultas ou exames em poucos cliques, com confirmação imediata.
+- **Chat com Profissionais** – Tire dúvidas e receba orientações em tempo real.
+- **Resultados Online** – Acesse e compartilhe laudos e exames de forma prática e segura.
+- **Interface Responsiva** – Experiência otimizada para computador, tablet e celular.
 
 ---
 
-##  Instalação e Execução
+##  Tecnologias Utilizadas
 
-### 1️⃣ Pré-requisitos
-- [Node.js](https://nodejs.org/) (versão LTS recomendada)
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- **React + TypeScript** – construção da interface
+- **Vite** – build e desenvolvimento rápido
+- **Tailwind CSS** – estilização moderna e responsiva
+- **Node.js & npm** – gerenciamento de pacotes e scripts
 
-### 2️⃣ Clonar o repositório
-```bash
-git clone https://github.com/marina-2907/chellange-sprint-03.git
-cd chellange-sprint-03
+---
+
+## Como Executar Localmente
+
+1. **Clonar o repositório**
+   ```bash
+   git clone https://github.com/marina-2907/challenge-sprint-03.git
+   cd challenge-sprint-03
+
+Copiar código
+npm run dev
+Acesse em:
+ -> http://localhost:5173
+
+- Equipe
+
+Alunos - RM	- Turma 
+----------------------------
+ 
+Bruno Vinicius Barbosa	566366 / 1TDSPY	
+João Pedro Bitencourt Goldoni	564339 / 1TDSPX	
+Marina Tamagnini Magalhães	561786 / 1TDSPX	
+
+Estrutura de Pastas (principal)
+arduino
+Copiar código
+challenge-sprint-03/
+├── public/
+│   ├── imgs/
+│   └── videos/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── routes.tsx
+│   └── main.tsx
+├── index.html
+└── tailwind.config.js
+
+
+ ° Próximos Passos do Projeto
+ ------------------------------
+
+ Implementar autenticação de usuários.
+
+ Integrar com banco de dados para armazenar agendamentos.
+
+ Melhorar a acessibilidade (leitores de tela, navegação por teclado).
+
