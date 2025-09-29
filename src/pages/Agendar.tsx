@@ -53,8 +53,8 @@ export function Agendar() {
     if (name === "hora") {
       setHoraMsg(
         isHorarioDisponivel(value)
-          ? "✅ Horário disponível"
-          : "❌ Horário não disponível"
+          ? "Horário disponível!"
+          : "Horário não disponível."
       );
     }
   };
@@ -79,7 +79,7 @@ export function Agendar() {
       return;
 
     if (!isHorarioDisponivel(form.hora)) {
-      setHoraMsg("❌ Horário não disponível");
+      setHoraMsg(" Horário não disponível");
       return;
     }
 
@@ -96,7 +96,7 @@ export function Agendar() {
   };
 
   const blocoAgendamento = (tipo: "Consulta" | "Exame", procedimentos: Procedimento[]) => (
-    <form onSubmit={handleSubmit} className="mt-10 bg-slate-50 shadow-xl rounded-2xl p-10 text-left space-y-8">
+    <form onSubmit={handleSubmit} className="mt-10 bg-white shadow-xl rounded-2xl p-10 text-left space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <input
           name="nome"
@@ -223,9 +223,11 @@ export function Agendar() {
   );
 
   return (
-    <main className="py-48 px-6 flex justify-center">
+    <main className="font-sans bg-gradient-to-b from-slate-50 to-white py-46 px-6 flex justify-center">
       <div className="w-full max-w-4xl text-center">
-        <h1 className="text-3xl font-bold mb-10 text-blue-900">Agenda de consultas </h1>
+        <h1 className="text-4xl font-extrabold mb-12 text-blue-900 drop-shadow-sm">
+          Agenda de Consultas
+        </h1>
 
         {etapa === "menu" && (
           <div className="flex flex-wrap justify-center gap-8">
@@ -253,11 +255,13 @@ export function Agendar() {
         {etapa === "meus" && (
           <div className="mt-10 text-left">
             {agendamentos.length === 0 ? (
-              <p className="text-slate-600">Você ainda não possui nenhum agendamento conosco.</p>
+              <p className="text-slate-600">
+                Você ainda não possui nenhum agendamento conosco.
+              </p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {agendamentos.map((a, i) => (
-                  <div key={i} className="bg-white rounded-xl p-6 shadow-md text-left">
+                  <div key={i} className="bg-white rounded-xl p-6 shadow-md text-left hover:shadow-lg transition">
                     <h3 className="text-blue-900 font-semibold mb-2">
                       {a.tipo} ({a.modalidade}): {a.procedimento}
                     </h3>

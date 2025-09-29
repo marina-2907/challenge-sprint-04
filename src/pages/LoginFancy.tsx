@@ -35,17 +35,17 @@ export function LoginFancy() {
   }
 
   return (
-    <main className="min-h-screen grid place-items-center relative p-8 text-[var(--ink)] overflow-hidden bg-gradient-to-br from-indigo-100 via-white to-cyan-50">
+    <main className="font-sans min-h-screen grid place-items-center relative p-8 text-gray-800 overflow-hidden bg-gradient-to-br from-indigo-100 via-white to-cyan-50">
       {/* Fundo animado suave */}
       <div className="absolute inset-0 animate-floatBg bg-[radial-gradient(60%_60%_at_10%_10%,#a7c1ff40_0%,transparent_60%),radial-gradient(60%_60%_at_90%_20%,#7cf6ff30_0%,transparent_60%),radial-gradient(70%_70%_at_50%_100%,#b388ff30_0%,transparent_60%)]" />
 
       {/* Card principal */}
       <section className="relative w-full max-w-[1100px] grid md:grid-cols-[1.1fr_1fr] bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-        {/* Coluna da esquerda: hero */}
+        {/* Coluna esquerda: hero */}
         <aside className="hidden md:flex flex-col justify-center gap-5 p-10 bg-gradient-to-b from-indigo-50 to-blue-100">
-          <h1 className="text-[var(--brand)] text-3xl font-extrabold leading-tight">
+          <h1 className="text-blue-900 text-3xl font-extrabold leading-tight">
             {modo === "login" ? "Acesse sua conta" : "Crie sua conta"}
-            <span className="block text-[var(--brand-2)] font-extrabold">
+            <span className="block text-indigo-700 font-extrabold">
               Telemedicina IMREA + HC
             </span>
           </h1>
@@ -53,24 +53,24 @@ export function LoginFancy() {
             Resultados, consultas e teleatendimento em um só lugar. Experiência
             segura e humanizada.
           </p>
-          <ul className="grid gap-1 text-[var(--ink)] font-medium">
+          <ul className="grid gap-1 text-slate-800 font-medium">
             <li>✔️ Resultados e laudos</li>
             <li>✔️ Agendamentos rápidos</li>
             <li>✔️ Telemedicina</li>
           </ul>
         </aside>
 
-        {/* Coluna da direita: formulário */}
+        {/* Coluna direita: formulário */}
         <form
           onSubmit={submit}
           className={`flex flex-col gap-4 p-10 transition-all duration-300 ${
             modo === "signup" ? "bg-white/95 shadow-2xl" : "bg-white/90"
           }`}
         >
-          <h2 className="text-2xl font-bold text-[var(--ink)]">
+          <h2 className="text-2xl font-bold text-blue-900">
             {modo === "login" ? "Bem-vindo(a) 👋" : "Criar Conta"}
           </h2>
-          <p className="text-[var(--muted)]">
+          <p className="text-gray-500">
             {modo === "login"
               ? "Entre para continuar"
               : "Preencha os campos para criar sua conta"}
@@ -80,7 +80,7 @@ export function LoginFancy() {
           <label className={`flex flex-col gap-1 ${errors.name && "text-red-500"}`}>
             <span className="font-semibold">Nome completo</span>
             <input
-              className="rounded-xl border border-slate-300 p-3 focus:border-[var(--brand-2)] focus:ring-4 focus:ring-blue-200 outline-none"
+              className="rounded-xl border border-slate-300 p-3 focus:border-indigo-500 focus:ring-4 focus:ring-blue-200 outline-none"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
@@ -93,7 +93,7 @@ export function LoginFancy() {
             <input
               type="email"
               placeholder="voce@exemplo.com"
-              className="rounded-xl border border-slate-300 p-3 focus:border-[var(--brand-2)] focus:ring-4 focus:ring-blue-200 outline-none"
+              className="rounded-xl border border-slate-300 p-3 focus:border-indigo-500 focus:ring-4 focus:ring-blue-200 outline-none"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -107,11 +107,10 @@ export function LoginFancy() {
               <input
                 type={showPwd ? "text" : "password"}
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-slate-300 p-3 pr-12 focus:border-[var(--brand-2)] focus:ring-4 focus:ring-blue-200 outline-none"
+                className="w-full rounded-xl border border-slate-300 p-3 pr-12 focus:border-indigo-500 focus:ring-4 focus:ring-blue-200 outline-none"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
-              {/* Botão olho */}
               <button
                 type="button"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
@@ -130,7 +129,7 @@ export function LoginFancy() {
               <input
                 type="password"
                 placeholder="Repita a senha"
-                className="rounded-xl border border-slate-300 p-3 focus:border-[var(--brand-2)] focus:ring-4 focus:ring-blue-200 outline-none"
+                className="rounded-xl border border-slate-300 p-3 focus:border-indigo-500 focus:ring-4 focus:ring-blue-200 outline-none"
                 value={form.confirm}
                 onChange={(e) => setForm({ ...form, confirm: e.target.value })}
               />
@@ -142,7 +141,7 @@ export function LoginFancy() {
 
           {/* Checkbox + Esqueci a senha */}
           {modo === "login" && (
-            <div className="flex items-center justify-between text-slate-900">
+            <div className="flex items-center justify-between text-slate-800">
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -153,7 +152,7 @@ export function LoginFancy() {
                 />
                 Lembrar-me
               </label>
-              <a href="#esqueci" className="text-[var(--brand-2)] font-semibold hover:underline">
+              <a href="#esqueci" className="text-indigo-600 font-semibold hover:underline">
                 Esqueci a senha
               </a>
             </div>
@@ -162,7 +161,7 @@ export function LoginFancy() {
           {/* Botão principal */}
           <button
             type="submit"
-            className="mt-2 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--brand-2)] text-white font-extrabold py-3 shadow-lg hover:-translate-y-1 transition"
+            className="mt-2 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-extrabold py-3 shadow-lg hover:-translate-y-1 transition"
           >
             {modo === "login" ? "Entrar" : "Criar Conta"}
           </button>
@@ -180,7 +179,7 @@ export function LoginFancy() {
               Não tem conta?{" "}
               <button
                 type="button"
-                className="text-[var(--brand-2)] font-bold hover:underline"
+                className="text-indigo-600 font-bold hover:underline"
                 onClick={() => setModo("signup")}
               >
                 Criar conta
@@ -191,7 +190,7 @@ export function LoginFancy() {
               Já tem conta?{" "}
               <button
                 type="button"
-                className="text-[var(--brand-2)] font-bold hover:underline"
+                className="text-indigo-600 font-bold hover:underline"
                 onClick={() => setModo("login")}
               >
                 Entrar

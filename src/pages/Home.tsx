@@ -6,7 +6,7 @@ type ModalKey = "agendar" | "contato" | "chat" | "resultados" | null;
 export function Home() {
   const [open, setOpen] = useState<ModalKey>(null);
   const [pacienteNome, setPacienteNome] = useState<string | null>(null);
-  const slides = ["/videos/video 1.mp4"];
+  const slides = ["public/videos/video 1.mp4"]; 
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -22,47 +22,50 @@ export function Home() {
   }, []);
 
   return (
-    <main className="font-inter text-gray-800">
+  
+    <main className="font-sans text-gray-800 bg-gradient-to-b from-slate-50 to-white">
+      
       {/* ===== HERO ===== */}
       <section className="relative h-[70vh] md:h-[60vh] flex items-center justify-start text-left overflow-hidden">
-  <video
-    key={slides[current]}
-    className="absolute inset-0 w-full h-full object-cover brightness-80"
-    src={slides[current]}
-    autoPlay
-    muted
-    loop
-    playsInline
-  />
-  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
-  <div className="relative z-10 max-w-3xl mx-8 md:mx-20 space-y-6">
-    {pacienteNome && (
-      <h2 className="text-2xl md:text-3xl font-semibold text-blue-200">
-        Olá, {pacienteNome}!
-      </h2>
-    )}
-    <h1 className="text-4xl md:text-5xl font-extrabold text-blue-600 leading-tight">
-      TELEMEDICINA IMREA + HC
-    </h1>
-    <p className="text-lg md:text-xl text-gray-100 leading-relaxed">
-      Atendimento online humanizado e seguro — agende consultas,
-      acesse resultados e fale com nossos profissionais.
-    </p>
-    <a
-      href="#sobre"
-      className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 text-white font-semibold px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition"
-    >
-      Saiba mais
-    </a>
-  </div>
-</section>
-
+        <video
+          key={slides[current]}
+          className="absolute inset-0 w-full h-full object-cover brightness-80"
+          src={slides[current]}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        <div className="relative z-10 max-w-3xl mx-8 md:mx-20 space-y-6 text-white">
+          {pacienteNome && (
+            <h2 className="text-2xl md:text-3xl text-blue-200 font-semibold">
+              Olá, {pacienteNome}!
+            </h2>
+          )}
+          <h1 className="text-4xl md:text-5xl text-blue-100 font-extrabold leading-tight drop-shadow-lg">
+            TELEMEDICINA IMREA + HC
+          </h1>
+          <p className="text-lg md:text-xl leading-relaxed text-gray-100/90">
+            Atendimento online humanizado e seguro — agende consultas,
+            acesse resultados e fale com nossos profissionais.
+          </p>
+          <a
+            href="#sobre"
+            className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 text-white font-semibold px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition"
+          >
+            Saiba mais
+          </a>
+        </div>
+      </section>
 
       {/* ===== SOBRE ===== */}
-      <section id="sobre" className="py-20 px-8 bg-gradient-to-b from-slate-50 to-white">
+      <section id="sobre" className="py-20 px-8">
         <div className="max-w-7xl mx-auto grid gap-16 md:grid-cols-2 items-center">
           <div className="space-y-6">
-            <h2 className="text-4xl font-extrabold text-blue-900">Sobre Nós</h2>
+            <h2 className="text-4xl font-extrabold text-blue-900 drop-shadow-sm">
+              Sobre Nós
+            </h2>
             <p className="text-lg leading-relaxed">
               Somos estudantes da FIAP apaixonados por tecnologia e inovação. Nosso objetivo é tornar a saúde mais acessível, inclusiva e humana, unindo experiência do usuário e eficiência técnica.
             </p>
@@ -79,7 +82,7 @@ export function Home() {
                 key={i}
                 src={`/imgs/${img}`}
                 alt="Sobre nós"
-                className="rounded-2xl shadow-xl object-cover w-full h-64 md:h-72 hover:scale-105 transition"
+                className="rounded-2xl shadow-2xl object-cover w-full h-64 md:h-72 hover:scale-105 transition-transform"
               />
             ))}
           </div>
@@ -89,8 +92,12 @@ export function Home() {
       {/* ===== SERVIÇOS ===== */}
       <section className="py-24 px-8 bg-gradient-to-b from-white to-slate-100">
         <div className="max-w-6xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-blue-900">Nossos Serviços</h2>
-          <p className="text-lg text-gray-700 mt-4">Tecnologia e segurança para o melhor atendimento.</p>
+          <h2 className="text-4xl font-extrabold text-blue-900 drop-shadow-sm">
+            Nossos Serviços
+          </h2>
+          <p className="text-lg text-gray-700 mt-4">
+            Tecnologia e segurança para o melhor atendimento.
+          </p>
         </div>
         <div className="max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {[
@@ -116,10 +123,12 @@ export function Home() {
             <article
               key={card.title}
               onClick={card.action}
-              className="bg-white/90 backdrop-blur-md border border-white p-10 rounded-3xl shadow-xl text-center hover:shadow-2xl hover:scale-105 transition cursor-pointer"
+              className="bg-white/90 backdrop-blur-md border border-white p-10 rounded-3xl shadow-xl text-center hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-transform cursor-pointer"
             >
               <div className="text-6xl mb-6 text-blue-700">{card.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">{card.title}</h3>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+                {card.title}
+              </h3>
               <p className="text-gray-700 leading-relaxed">{card.desc}</p>
             </article>
           ))}
@@ -129,16 +138,20 @@ export function Home() {
       {/* ===== MODAIS ===== */}
       <Modal title="Nosso Chat" isOpen={open === "chat"} onClose={() => setOpen(null)}>
         <p className="text-gray-600">Acesse nosso canal oficial.</p>
-        <a className="text-blue-600 underline" href="#">Abrir chat</a>
+        <a className="text-blue-600 underline" href="#">
+          Abrir chat
+        </a>
       </Modal>
       <Modal title="Resultados" isOpen={open === "resultados"} onClose={() => setOpen(null)}>
         <p className="text-gray-600 mb-4">Acesse o portal de resultados.</p>
-        <a className="text-blue-600 underline" href="/results">Abrir Resultados</a>
+        <a className="text-blue-600 underline" href="/results">
+          Abrir Resultados
+        </a>
       </Modal>
 
       {/* ===== EQUIPE ===== */}
       <section className="py-24 px-8 bg-blue-50">
-        <h2 className="text-4xl font-extrabold text-center text-blue-900 mb-16">
+        <h2 className="text-4xl font-extrabold text-center text-blue-900 mb-16 drop-shadow-sm">
           Os Alunos
         </h2>
         <div className="max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -167,7 +180,7 @@ export function Home() {
           ].map((aluno) => (
             <div
               key={aluno.name}
-              className="bg-white/90 backdrop-blur-lg p-10 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition"
+              className="bg-white/90 backdrop-blur-lg p-10 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-transform"
             >
               <img
                 src={aluno.img}
@@ -178,10 +191,18 @@ export function Home() {
               <p className="text-sm text-gray-600 mb-4">{aluno.rm}</p>
               <div className="flex justify-center gap-5">
                 <a href={aluno.linkedin} target="_blank" rel="noreferrer">
-                  <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" className="w-8 h-8 hover:scale-110 transition" />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                    alt="LinkedIn"
+                    className="w-8 h-8 hover:scale-110 transition-transform"
+                  />
                 </a>
                 <a href={aluno.github} target="_blank" rel="noreferrer">
-                  <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" className="w-8 h-8 hover:scale-110 transition" />
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                    alt="GitHub"
+                    className="w-8 h-8 hover:scale-110 transition-transform"
+                  />
                 </a>
               </div>
             </div>

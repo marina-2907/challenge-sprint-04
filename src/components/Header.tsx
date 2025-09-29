@@ -6,7 +6,9 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="flex items-center justify-between px-6 py-5 bg-blue-900 text-white shadow-md relative z-50">
+    <header
+      className="font-sans flex items-center justify-between px-6 py-5 bg-blue-900 text-white shadow-md relative z-50"
+    >
       {/* ===== LOGOS ESQUERDA ===== */}
       <div className="flex items-center gap-4">
         <Link to="/" className="flex-shrink-0">
@@ -29,7 +31,7 @@ export function Header() {
       <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
         <Link
           to="/agendar"
-          className="px-4 py-2 rounded-lg font-inter font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
+          className="px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
           hover:from-orange-400 hover:to-pink-500 hover:text-white 
           shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-0.5"
         >
@@ -37,7 +39,7 @@ export function Header() {
         </Link>
         <Link
           to="/chat"
-          className="px-4 py-2 rounded-lg font-inter font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
+          className="px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
           hover:from-orange-400 hover:to-pink-500 hover:text-white 
           shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-0.5"
         >
@@ -45,7 +47,7 @@ export function Header() {
         </Link>
         <Link
           to="/resultados"
-          className="px-4 py-2 rounded-lg font-inter font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
+          className="px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
           hover:from-orange-400 hover:to-pink-500 hover:text-white 
           shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-0.5"
         >
@@ -53,7 +55,7 @@ export function Header() {
         </Link>
         <Link
           to="/contato"
-          className="px-4 py-2 rounded-lg font-inter font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
+          className="px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-sky-600 to-blue-700 
           hover:from-orange-400 hover:to-pink-500 hover:text-white 
           shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-0.5"
         >
@@ -83,7 +85,7 @@ export function Header() {
 
       {/* ===== MENU MOBILE ===== */}
       {menuOpen && (
-          <div className="absolute top-full left-0 w-full bg-blue-900 shadow-lg flex flex-col items-center gap-4 py-6 md:hidden animate-fade-in z-50">
+        <div className="absolute top-full left-0 w-full bg-blue-900 shadow-lg flex flex-col items-center gap-4 py-6 md:hidden animate-fade-in z-50">
           <Link
             to="/agendar"
             onClick={() => setMenuOpen(false)}
