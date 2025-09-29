@@ -41,7 +41,7 @@ export function Home() {
         Olá, {pacienteNome}!
       </h2>
     )}
-    <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+    <h1 className="text-4xl md:text-5xl font-extrabold text-blue-600 leading-tight">
       TELEMEDICINA IMREA + HC
     </h1>
     <p className="text-lg md:text-xl text-gray-100 leading-relaxed">

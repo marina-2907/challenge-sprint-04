@@ -11,8 +11,8 @@
 }
   
   body {
-    @apply font-inter; 
-  }
+  @apply font-suse;
+}
 
  html {
   scroll-behavior: smooth;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export function LoginFancy() {
   const navigate = useNavigate();
@@ -34,21 +35,21 @@ export function LoginFancy() {
   }
 
   return (
-    <main className="min-h-screen grid place-items-center relative p-8 text-[var(--ink)] overflow-hidden">
-      {/* Fundo animado */}
-      <div className="absolute inset-0 animate-floatBg bg-[radial-gradient(60%_60%_at_10%_10%,#a7c1ff55_0%,transparent_60%),radial-gradient(60%_60%_at_90%_20%,#7cf6ff40_0%,transparent_60%),radial-gradient(70%_70%_at_50%_100%,#b388ff33_0%,transparent_60%),linear-gradient(180deg,#eef2ff_0%,#ffffff_70%)] saturate-110" />
+    <main className="min-h-screen grid place-items-center relative p-8 text-[var(--ink)] overflow-hidden bg-gradient-to-br from-indigo-100 via-white to-cyan-50">
+      {/* Fundo animado suave */}
+      <div className="absolute inset-0 animate-floatBg bg-[radial-gradient(60%_60%_at_10%_10%,#a7c1ff40_0%,transparent_60%),radial-gradient(60%_60%_at_90%_20%,#7cf6ff30_0%,transparent_60%),radial-gradient(70%_70%_at_50%_100%,#b388ff30_0%,transparent_60%)]" />
 
-      {/* Card glass */}
-      <section className="relative w-full max-w-[1100px] grid md:grid-cols-[1.1fr_1fr] bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden">
-        {/* Lado esquerdo - Hero */}
-        <aside className="hidden md:flex flex-col justify-center gap-5 p-10 bg-[linear-gradient(180deg,rgba(30,58,138,0.12),rgba(37,99,235,0.1))] bg-cover">
-          <h1 className="text-[var(--brand)] text-3xl leading-tight font-bold">
+      {/* Card principal */}
+      <section className="relative w-full max-w-[1100px] grid md:grid-cols-[1.1fr_1fr] bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+        {/* Coluna da esquerda: hero */}
+        <aside className="hidden md:flex flex-col justify-center gap-5 p-10 bg-gradient-to-b from-indigo-50 to-blue-100">
+          <h1 className="text-[var(--brand)] text-3xl font-extrabold leading-tight">
             {modo === "login" ? "Acesse sua conta" : "Crie sua conta"}
             <span className="block text-[var(--brand-2)] font-extrabold">
               Telemedicina IMREA + HC
             </span>
           </h1>
-          <p className="opacity-80">
+          <p className="opacity-80 text-slate-700">
             Resultados, consultas e teleatendimento em um só lugar. Experiência
             segura e humanizada.
           </p>
@@ -59,11 +60,11 @@ export function LoginFancy() {
           </ul>
         </aside>
 
-        {/* Lado direito - Formulário */}
+        {/* Coluna da direita: formulário */}
         <form
           onSubmit={submit}
           className={`flex flex-col gap-4 p-10 transition-all duration-300 ${
-            modo === "signup" ? "bg-white/95 shadow-2xl" : "bg-white/85"
+            modo === "signup" ? "bg-white/95 shadow-2xl" : "bg-white/90"
           }`}
         >
           <h2 className="text-2xl font-bold text-[var(--ink)]">
@@ -77,7 +78,7 @@ export function LoginFancy() {
 
           {/* Nome */}
           <label className={`flex flex-col gap-1 ${errors.name && "text-red-500"}`}>
-            <span className="font-semibold text-slate-900">Nome completo</span>
+            <span className="font-semibold">Nome completo</span>
             <input
               className="rounded-xl border border-slate-300 p-3 focus:border-[var(--brand-2)] focus:ring-4 focus:ring-blue-200 outline-none"
               value={form.name}
@@ -88,7 +89,7 @@ export function LoginFancy() {
 
           {/* Email */}
           <label className={`flex flex-col gap-1 ${errors.email && "text-red-500"}`}>
-            <span className="font-semibold text-slate-900">E-mail</span>
+            <span className="font-semibold">E-mail</span>
             <input
               type="email"
               placeholder="voce@exemplo.com"
@@ -101,7 +102,7 @@ export function LoginFancy() {
 
           {/* Senha */}
           <label className={`flex flex-col gap-1 ${errors.password && "text-red-500"}`}>
-            <span className="font-semibold text-slate-900">Senha</span>
+            <span className="font-semibold">Senha</span>
             <div className="relative">
               <input
                 type={showPwd ? "text" : "password"}
@@ -110,23 +111,22 @@ export function LoginFancy() {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
+              {/* Botão olho */}
               <button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowPwd((s) => !s)}
               >
-                {showPwd ? "🙈" : "👁️"}
+                {showPwd ? <FiEyeOff size={22} /> : <FiEye size={22} />}
               </button>
             </div>
-            {errors.password && (
-              <small className="font-semibold">{errors.password}</small>
-            )}
+            {errors.password && <small className="font-semibold">{errors.password}</small>}
           </label>
 
           {/* Confirmar senha (signup) */}
           {modo === "signup" && (
             <label className={`flex flex-col gap-1 ${errors.confirm && "text-red-500"}`}>
-              <span className="font-semibold text-slate-900">Confirmar Senha</span>
+              <span className="font-semibold">Confirmar Senha</span>
               <input
                 type="password"
                 placeholder="Repita a senha"
@@ -140,6 +140,7 @@ export function LoginFancy() {
             </label>
           )}
 
+          {/* Checkbox + Esqueci a senha */}
           {modo === "login" && (
             <div className="flex items-center justify-between text-slate-900">
               <label className="flex items-center gap-2">
@@ -158,36 +159,22 @@ export function LoginFancy() {
             </div>
           )}
 
+          {/* Botão principal */}
           <button
             type="submit"
-            className={`mt-2 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--brand-2)] text-white font-extrabold py-3 shadow-lg hover:-translate-y-1 transition ${
-              modo === "signup" ? "shadow-indigo-400/40" : ""
-            }`}
+            className="mt-2 rounded-xl bg-gradient-to-r from-[var(--brand)] to-[var(--brand-2)] text-white font-extrabold py-3 shadow-lg hover:-translate-y-1 transition"
           >
             {modo === "login" ? "Entrar" : "Criar Conta"}
           </button>
 
+          {/* Divider */}
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-slate-500">
             <span className="h-px bg-slate-200" />
             ou
             <span className="h-px bg-slate-200" />
           </div>
 
-          <div className="grid gap-3">
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 border border-slate-300 rounded-xl p-3 bg-white hover:bg-slate-50"
-            >
-              <img src="public/imgs/G.png" alt="" className="w-5 h-5" /> Entrar com Google
-            </button>
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 border border-slate-300 rounded-xl p-3 bg-white hover:bg-slate-50"
-            >
-              <img src="public/imgs/icloud.jpg" alt="" className="w-5 h-5" /> Entrar com Apple
-            </button>
-          </div>
-
+          {/* Alternar login/signup */}
           {modo === "login" ? (
             <p className="text-slate-600 mt-1">
               Não tem conta?{" "}
