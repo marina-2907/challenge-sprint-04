@@ -43,7 +43,7 @@ export function Home() {
               Olá, {pacienteNome}!
             </h2>
           )}
-          <h1 className="text-4xl md:text-5xl text-blue-100 font-extrabold leading-tight drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl text-blue-500 font-extrabold leading-tight drop-shadow-lg">
             TELEMEDICINA IMREA + HC
           </h1>
           <p className="text-lg md:text-xl leading-relaxed text-gray-100/90">
@@ -148,67 +148,6 @@ export function Home() {
           Abrir Resultados
         </a>
       </Modal>
-
-      {/* ===== EQUIPE ===== */}
-      <section className="py-24 px-8 bg-blue-50">
-        <h2 className="text-4xl font-extrabold text-center text-blue-900 mb-16 drop-shadow-sm">
-          Os Alunos
-        </h2>
-        <div className="max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              name: "Bruno Vinicius Barbosa",
-              rm: "566366 / 1TDSPY",
-              img: "/imgs/aluno1.jpeg",
-              linkedin: "https://www.linkedin.com/in/brunovbarbosaa",
-              github: "https://github.com/brunovinicius02",
-            },
-            {
-              name: "João Pedro Bitencourt Goldoni",
-              rm: "564339 / 1TDSPX",
-              img: "/imgs/aluno2.jpg",
-              linkedin: "https://www.linkedin.com/in/joaopedrogoldoni",
-              github: "https://github.com/JoaoPedroBitencourtGoldoni",
-            },
-            {
-              name: "Marina Tamagnini Magalhães",
-              rm: "561786 / 1TDSPX",
-              img: "/imgs/aluno3.jpg",
-              linkedin: "https://www.linkedin.com/in/marina-t-36b14328b",
-              github: "https://github.com/marina-2907/marina",
-            },
-          ].map((aluno) => (
-            <div
-              key={aluno.name}
-              className="bg-white/90 backdrop-blur-lg p-10 rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-transform"
-            >
-              <img
-                src={aluno.img}
-                alt={aluno.name}
-                className="w-40 h-40 mx-auto rounded-full object-cover mb-6 ring-4 ring-blue-200"
-              />
-              <h3 className="text-lg font-semibold text-gray-800">{aluno.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">{aluno.rm}</p>
-              <div className="flex justify-center gap-5">
-                <a href={aluno.linkedin} target="_blank" rel="noreferrer">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                    alt="LinkedIn"
-                    className="w-8 h-8 hover:scale-110 transition-transform"
-                  />
-                </a>
-                <a href={aluno.github} target="_blank" rel="noreferrer">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                    alt="GitHub"
-                    className="w-8 h-8 hover:scale-110 transition-transform"
-                  />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   );
 }

@@ -5,6 +5,8 @@ import { Resultados } from "./pages/Resultados";
 import { LoginFancy } from "./pages/LoginFancy";
 import { Agendar } from "./pages/Agendar";   
 import { Contato } from "./pages/Contato";   
+import { FAQ } from "./pages/FAQ";
+import { Integrantes } from "./pages/Integrantes";  
 
 export const routes: RouteObject[] = [
   { path: "/", element: <Home /> },
@@ -13,4 +15,6 @@ export const routes: RouteObject[] = [
   { path: "/login", element: <LoginFancy /> },
   { path: "/agendar", element: <Agendar /> },
   { path: "/contato", element: <Contato /> },
+  { path: "/faq", element: <FAQ /> },
+  { path: "/integrantes", element: <Integrantes /> },
 ];

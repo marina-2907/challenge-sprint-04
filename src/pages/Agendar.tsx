@@ -223,7 +223,7 @@ export function Agendar() {
   );
 
   return (
-    <main className="font-sans bg-gradient-to-b from-slate-50 to-white py-46 px-6 flex justify-center">
+    <main className="font-sans bg-gradient-to-b from-slate-50 to-white py-50 px-6 flex justify-center">
       <div className="w-full max-w-4xl text-center">
         <h1 className="text-4xl font-extrabold mb-12 text-blue-900 drop-shadow-sm">
           Agenda de Consultas
