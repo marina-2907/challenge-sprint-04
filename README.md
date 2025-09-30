@@ -61,7 +61,7 @@ chellange-sprint-03/
 ├─ src/
 │ ├─ components/ # Componentes reutilizáveis (Carousel, Footer, FormField, Header e Modal.)
 │ ├─ hooks/ # ( useForm. )
-│ ├─ pages/ # Páginas principais (Home, Agendar, Chat, Contato, Login e Resultados.)
+│ ├─ pages/ # Páginas principais (Home, Agendar, Chat, Contato, Login, Resultados FAQ e Integrantes.)
 │ ├─ App.tsx # Componente raiz da aplicação
 │ ├─ main.tsx # Ponto de entrada da aplicação
 │ └─ index.css # Estilos globais (TailwindCSS)
@@ -70,7 +70,7 @@ chellange-sprint-03/
 
 ---
 
-##  Instalação e Execução
+## Instalação e Execução
 
 ### 1️⃣ Pré-requisitos
 - [Node.js](https://nodejs.org/) (versão LTS recomendada)
@@ -78,5 +78,14 @@ chellange-sprint-03/
 
 ### 2️⃣ Clonar o repositório
 ```bash
-git clone https://github.com/marina-2907/chellange-sprint-03.git
-cd chellange-sprint-03
+git clone https://github.com/marina-2907/challenge-sprint-03.git
+cd challenge-sprint-03
+3️⃣ Instalar dependências
+bash
+Copiar código
+npm install
+4️⃣ Executar em modo desenvolvimento
+bash
+Copiar código
+npm run dev
+O sistema estará disponível em http://localhost:5173.
