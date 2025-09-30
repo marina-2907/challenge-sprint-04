@@ -29,8 +29,8 @@ Nesta Sprint 3, ampliamos as funcionalidades, refinamos a interface e reforçamo
   Código pronto para evoluir com banco de dados, autenticação real e recursos de teleconsulta.
 
 ---
-## integrantes
-### 👩‍💻 Equipe
+
+### Equipe
 
 - **Bruno Vinicius Barbosa** — 566366 / 1TDSPY  
   [LinkedIn](https://www.linkedin.com/in/brunovbarbosaa) • [GitHub](https://github.com/brunovinicius02)
