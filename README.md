@@ -91,17 +91,17 @@ chellange-sprint-03/
 
 ### 2️⃣ Clonar o repositório
 -bash
-git clone https://github.com/marina-2907/challenge-sprint-03.git
-cd challenge-sprint-03
-3️⃣ Instalar dependências
-bash
-Copiar código
-npm install
-4️⃣ Executar em modo desenvolvimento
-bash
-Copiar código
-npm run dev
-O sistema estará disponível em http://localhost:5173.
+  git clone https://github.com/marina-2907/challenge-sprint-03.git
+  cd challenge-sprint-03
+### 3️⃣ Instalar dependências
+-bash
+  Copiar código
+  npm install
+### 4️⃣ Executar em modo desenvolvimento
+-bash
+  Copiar código
+  npm run dev
+  O sistema estará disponível em http://localhost:5173.
 ---
 
 ## Links Importantes
