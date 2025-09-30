@@ -29,6 +29,19 @@ Nesta Sprint 3, ampliamos as funcionalidades, refinamos a interface e reforçamo
   Código pronto para evoluir com banco de dados, autenticação real e recursos de teleconsulta.
 
 ---
+## integrantes
+### 👩‍💻 Equipe
+
+- **Bruno Vinicius Barbosa** — 566366 / 1TDSPY  
+  [LinkedIn](https://www.linkedin.com/in/brunovbarbosaa) • [GitHub](https://github.com/brunovinicius02)
+
+- **João Pedro Bitencourt Goldoni** — 564339 / 1TDSPX  
+  [LinkedIn](https://www.linkedin.com/in/joaopedrogoldoni) • [GitHub](https://github.com/JoaoPedroBitencourtGoldoni)
+
+- **Marina Tamagnini Magalhães** — 561786 / 1TDSPX  
+  [LinkedIn](https://www.linkedin.com/in/marina-t-36b14328b) • [GitHub](https://github.com/marina-2907/marina)
+  
+---
 
 ## Funcionalidades Atualizadas
 
@@ -77,7 +90,7 @@ chellange-sprint-03/
 - [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
 
 ### 2️⃣ Clonar o repositório
-```bash
+-bash
 git clone https://github.com/marina-2907/challenge-sprint-03.git
 cd challenge-sprint-03
 3️⃣ Instalar dependências
@@ -89,3 +102,12 @@ bash
 Copiar código
 npm run dev
 O sistema estará disponível em http://localhost:5173.
+---
+
+## Links Importantes
+
+- 📹 **Vídeo de Apresentação**: [Assista no YouTube](https://youtu.be/eIkZiWmrJ6s?si=8ScZJ8iuMIU9_yLr)  
+- 💻 **Repositório no GitHub**: [challenge-sprint-03](https://github.com/marina-2907/challenge-sprint-03)
+
+
+
