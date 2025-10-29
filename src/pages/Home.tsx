@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Modal } from "../components/Modal";
+import { useNavigate } from "react-router-dom";
 
 type ModalKey = "agendar" | "contato" | "chat" | "resultados" | null;
 
 export function Home() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState<ModalKey>(null);
   const [pacienteNome, setPacienteNome] = useState<string | null>(null);
-  const slides = ["public/videos/video 1.mp4"]; 
-  const [current, setCurrent] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+  // Vite: /public -> use caminhos absolutos
+  const slides = useMemo(() => ["/videos/video 1.mp4"], []);
+  const [current] = useState(0); // 1 video: sem rotação p/ reduzir ruído
+
+  // Saudação inteligente
+  const saudacao = useMemo(() => {
+    const h = new Date().getHours();
+    if (h < 12) return "Bom dia";
+    if (h < 18) return "Boa tarde";
+    return "Boa noite";
+  }, []);
 
   useEffect(() => {
     const nome = localStorage.getItem("pacienteNome");
@@ -22,131 +27,234 @@ export function Home() {
   }, []);
 
   return (
-  
-    <main className="font-sans text-gray-800 bg-gradient-to-b from-slate-50 to-white">
-      
-      {/* ===== HERO ===== */}
-      <section className="relative h-[70vh] md:h-[60vh] flex items-center justify-start text-left overflow-hidden">
+    <main className="font-sans bg-white text-slate-900">
+
+      {/* ===== HERO minimal (overlay azul sólido, sem gradiente) ===== */}
+      <section className="relative h-[58vh] md:h-[54vh] flex items-center overflow-hidden">
         <video
           key={slides[current]}
-          className="absolute inset-0 w-full h-full object-cover brightness-80"
-          src={slides[current]}
+          className="absolute inset-0 w-full h-full object-cover brightness-95"
+          src={slides[0]}
           autoPlay
           muted
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-        <div className="relative z-10 max-w-3xl mx-8 md:mx-20 space-y-6 text-white">
-          {pacienteNome && (
-            <h2 className="text-2xl md:text-3xl text-blue-200 font-semibold">
-              Olá, {pacienteNome}!
-            </h2>
-          )}
-          <h1 className="text-4xl md:text-5xl text-blue-500 font-extrabold leading-tight drop-shadow-lg">
-            TELEMEDICINA IMREA + HC
-          </h1>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-100/90">
-            Atendimento online humanizado e seguro — agende consultas,
-            acesse resultados e fale com nossos profissionais.
+        <div className="absolute inset-0 bg-blue-900/60" />
+
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8">
+          <p className="text-blue-100 text-sm md:text-base">
+            {saudacao}{pacienteNome ? `, ${pacienteNome}` : ""} — bem-vindo(a)
           </p>
-          <a
-            href="#sobre"
-            className="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 text-white font-semibold px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition"
-          >
-            Saiba mais
-          </a>
+          <h1 className="mt-1 text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+            Telemedicina IMREA + HC
+          </h1>
+          <p className="mt-3 max-w-2xl text-white/90 text-sm md:text-lg">
+            Agende consultas, acesse resultados e obtenha suporte em poucos cliques.
+          </p>
+
+          {/* Ações rápidas “inteligentes” (chips) */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            <button
+              onClick={() => navigate("/agendar")}
+              className="h-9 px-4 rounded-full bg-white text-blue-900 text-sm font-semibold hover:bg-blue-50 transition border border-blue-200"
+            >
+              Agendar agora
+            </button>
+            <button
+              onClick={() => navigate("/resultados")}
+              className="h-9 px-4 rounded-full bg-white/90 text-blue-900 text-sm font-semibold hover:bg-white transition border border-white/60"
+            >
+              Ver resultados
+            </button>
+            <button
+              onClick={() => navigate("/contato")}
+              className="h-9 px-4 rounded-full bg-white/90 text-blue-900 text-sm font-semibold hover:bg-white transition border border-white/60"
+            >
+              Contato
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* ===== SOBRE ===== */}
-      <section id="sobre" className="py-20 px-8">
-        <div className="max-w-7xl mx-auto grid gap-16 md:grid-cols-2 items-center">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-extrabold text-blue-900 drop-shadow-sm">
-              Sobre Nós
-            </h2>
-            <p className="text-lg leading-relaxed">
-              Somos estudantes da FIAP apaixonados por tecnologia e inovação. Nosso objetivo é tornar a saúde mais acessível, inclusiva e humana, unindo experiência do usuário e eficiência técnica.
+      {/* ===== SOBRE (compacto, alinhado ao azul) ===== */}
+      <section id="sobre" className="py-14 px-6 md:px-8">
+        <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr,1fr] items-start">
+          <div className="space-y-4">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-blue-900">Sobre nós</h2>
+            <p className="text-sm md:text-base leading-relaxed text-slate-700">
+              Plataforma acadêmica da FIAP focada em acessibilidade, segurança e simplicidade
+              para o cuidado em saúde: agendamentos, teleatendimento e resultados em um só lugar.
             </p>
-            <p className="text-lg leading-relaxed">
-              Este projeto de <strong className="text-blue-900">Telemedicina</strong> nasceu para facilitar agendamentos, consultas e o acesso a resultados de exames, com segurança e praticidade.
-            </p>
-            <p className="text-lg leading-relaxed">
-              Acreditamos que <strong className="text-blue-900">inovação</strong> e <strong className="text-blue-900">empatia</strong> transformam o cuidado com a saúde.
-            </p>
+            <div className="flex gap-2 pt-1">
+              <button
+                onClick={() => navigate("/agendar")}
+                className="h-10 px-4 rounded-md bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                Agendar
+              </button>
+              <button
+                onClick={() => navigate("/resultados")}
+                className="h-10 px-4 rounded-md border border-slate-300 text-slate-800 text-sm font-semibold hover:bg-slate-50 transition"
+              >
+                Resultados
+              </button>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-6">
+
+          <div className="grid grid-cols-2 gap-3">
             {["imrea 2.webp","paciente 02.webp","paciente 01.webp","apresentação.jpeg"].map((img, i) => (
-              <img
+              <figure
                 key={i}
-                src={`/imgs/${img}`}
-                alt="Sobre nós"
-                className="rounded-2xl shadow-2xl object-cover w-full h-64 md:h-72 hover:scale-105 transition-transform"
-              />
+                className="rounded-xl border border-slate-200 bg-white p-2 shadow-sm hover:shadow-md transition"
+              >
+                <img
+                  src={`/imgs/${img}`}
+                  alt="Telemedicina IMREA + HC"
+                  className="rounded-lg object-cover w-full h-44 md:h-52"
+                  loading="lazy"
+                />
+              </figure>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SERVIÇOS ===== */}
-      <section className="py-24 px-8 bg-gradient-to-b from-white to-slate-100">
-        <div className="max-w-6xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-blue-900 drop-shadow-sm">
-            Nossos Serviços
-          </h2>
-          <p className="text-lg text-gray-700 mt-4">
-            Tecnologia e segurança para o melhor atendimento.
+      {/* ===== SERVIÇOS — layout assimétrico, azul, sem gradiente ===== */}
+      <section id="servicos" className="px-6 md:px-8 pb-16">
+        <div className="mx-auto max-w-6xl mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900">Serviços</h2>
+          <p className="text-sm md:text-base text-slate-600 mt-1">
+            Atalhos principais do portal
           </p>
         </div>
-        <div className="max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              title: "Agendamento Online",
-              icon: "📅",
-              desc: "Agende consultas e procedimentos em poucos cliques, com confirmação imediata e lembretes automáticos.",
-              action: () => setOpen("agendar"),
-            },
-            {
-              title: "Chat com Profissionais",
-              icon: "💬",
-              desc: "Converse em tempo real com a equipe para tirar dúvidas e receber orientações com segurança.",
-              action: () => setOpen("chat"),
-            },
-            {
-              title: "Resultados Online",
-              icon: "📄",
-              desc: "Acesse laudos e exames de forma prática e segura, podendo compartilhar com seu médico.",
-              action: () => setOpen("resultados"),
-            },
-          ].map((card) => (
-            <article
-              key={card.title}
-              onClick={card.action}
-              className="bg-white/90 backdrop-blur-md border border-white p-10 rounded-3xl shadow-xl text-center hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-transform cursor-pointer"
+
+        {/* Grid com card destaque + dois cards secundários */}
+        <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-3">
+          {/* Destaque: Agendar (ocupa 2 colunas no desktop) */}
+          <article
+            className="lg:col-span-2 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-lg transition
+                       group"
+            role="button"
+            tabIndex={0}
+            onClick={() => navigate("/agendar")}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && navigate("/agendar")}
+            aria-label="Abrir Agendamento"
+          >
+            <div className="flex items-start gap-4">
+              <div className="h-12 w-12 rounded-lg bg-blue-50 ring-1 ring-blue-200 flex items-center justify-center">
+                <span className="text-2xl">📅</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-semibold text-slate-900">Agendamento</h3>
+                <p className="mt-1 text-slate-600">
+                  Marque consultas e exames com data, hora e modalidade.
+                </p>
+
+                {/* Chips “inteligentes” de acesso rápido */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {["Consulta Presencial", "Telemedicina", "Exames"].map((c) => (
+                    <span
+                      key={c}
+                      className="px-3 py-1 rounded-full border border-slate-200 text-xs font-medium text-slate-700
+                                 group-hover:border-blue-300"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  className="mt-5 h-10 px-5 rounded-md bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/agendar");
+                  }}
+                >
+                  Agendar agora
+                </button>
+              </div>
+            </div>
+          </article>
+
+          {/* Secundário: Resultados */}
+          <article
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition
+                       focus-within:ring-2 ring-blue-300"
+          >
+            <div className="h-11 w-11 rounded-lg bg-blue-50 ring-1 ring-blue-200 flex items-center justify-center">
+              <span className="text-xl">🧾</span>
+            </div>
+            <h3 className="mt-3 text-xl font-semibold">Resultados</h3>
+            <p className="mt-1 text-slate-600">Laudos, exames e documentos em um só lugar.</p>
+
+            <ul className="mt-3 space-y-2 text-sm text-slate-700">
+              <li>• Exames em TXT/PDF</li>
+              <li>• Histórico por data</li>
+              <li>• Download rápido</li>
+            </ul>
+
+            <button
+              onClick={() => navigate("/resultados")}
+              className="mt-4 h-9 px-4 rounded-md bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
             >
-              <div className="text-6xl mb-6 text-blue-700">{card.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-                {card.title}
-              </h3>
-              <p className="text-gray-700 leading-relaxed">{card.desc}</p>
-            </article>
-          ))}
+              Ver resultados
+            </button>
+          </article>
+
+          {/* Secundário: Contato */}
+          <article
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg transition
+                       focus-within:ring-2 ring-blue-300 lg:col-start-3"
+          >
+            <div className="h-11 w-11 rounded-lg bg-blue-50 ring-1 ring-blue-200 flex items-center justify-center">
+              <span className="text-xl">💬</span>
+            </div>
+            <h3 className="mt-3 text-xl font-semibold">Contato</h3>
+            <p className="mt-1 text-slate-600">Canal direto com nosso suporte.</p>
+
+            <div className="mt-3 grid gap-2 text-sm">
+              <span className="text-slate-700">atendimento@imrea-hc.br</span>
+              <span className="text-slate-700">Seg–Sex, 08:00–18:00</span>
+            </div>
+
+            <button
+              onClick={() => navigate("/contato")}
+              className="mt-4 h-9 px-4 rounded-md bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+            >
+              Falar com suporte
+            </button>
+          </article>
         </div>
       </section>
 
       {/* ===== MODAIS ===== */}
       <Modal title="Nosso Chat" isOpen={open === "chat"} onClose={() => setOpen(null)}>
-        <p className="text-gray-600">Acesse nosso canal oficial.</p>
-        <a className="text-blue-600 underline" href="#">
-          Abrir chat
-        </a>
+        <p className="text-slate-700">Canal oficial (em breve).</p>
+        <button
+          onClick={() => setOpen(null)}
+          className="mt-4 h-10 px-4 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+        >
+          Fechar
+        </button>
       </Modal>
+
       <Modal title="Resultados" isOpen={open === "resultados"} onClose={() => setOpen(null)}>
-        <p className="text-gray-600 mb-4">Acesse o portal de resultados.</p>
-        <a className="text-blue-600 underline" href="/results">
-          Abrir Resultados
-        </a>
+        <p className="text-slate-700 mb-2">Acesse seus documentos.</p>
+        <div className="flex gap-2">
+          <button
+            onClick={() => { setOpen(null); navigate("/resultados"); }}
+            className="h-10 px-4 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+          >
+            Abrir Resultados
+          </button>
+          <button
+            onClick={() => setOpen(null)}
+            className="h-10 px-4 rounded-md bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300 transition"
+          >
+            Fechar
+          </button>
+        </div>
       </Modal>
     </main>
   );
