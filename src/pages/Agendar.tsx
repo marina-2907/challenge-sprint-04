@@ -1,7 +1,21 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConsultasApi, type NovaConsulta } from "../services/Api";
+import {
+  CheckCircle2,
+  CalendarDays,
+  Clock,
+  Phone,
+  User2,
+  MapPin,
+  Stethoscope,
+  FlaskConical,
+  ClipboardList,
+} from "lucide-react";
 
+/* =============================== */
+/* Helpers e Tipos                 */
+/* =============================== */
 type Procedimento = string;
 type Agendamento = {
   nome: string;
@@ -31,17 +45,22 @@ const EXAMES: Procedimento[] = [
   "Habilitação e Reabilitação Profissional",
 ];
 
-// helpers sem libs
 const onlyDigits = (s: string) => s.replace(/\D/g, "");
 const maskPhone = (v: string) => {
   const d = onlyDigits(v).slice(0, 11);
+  if (!d) return "";
   if (d.length <= 2) return `(${d}`;
-  if (d.length <= 7) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
-  if (d.length <= 11)
-    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  return v;
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7, 11)}`;
 };
-
+const todayISO = () => {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+};
 function isHorarioDisponivel(hora: string) {
   if (!hora) return false;
   const [h, m] = hora.split(":").map(Number);
@@ -51,12 +70,12 @@ function isHorarioDisponivel(hora: string) {
   return true;
 }
 
+/* =============================== */
+/* Componente                      */
+/* =============================== */
 export function Agendar() {
   const navigate = useNavigate();
-
-  const [etapa, setEtapa] = useState<"menu" | "consulta" | "exame" | "meus">(
-    "menu"
-  );
+  const [tab, setTab] = useState<"consulta" | "exame" | "meus">("consulta");
 
   const [form, setForm] = useState<Agendamento>({
     nome: "",
@@ -76,9 +95,14 @@ export function Agendar() {
   const [okMsg, setOkMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // mantém o tipo alinhado com a aba
+  useEffect(() => {
+    setForm((f) => ({ ...f, tipo: tab === "exame" ? "Exame" : "Consulta", procedimento: "" }));
+  }, [tab]);
+
   const procedimentos = useMemo<Procedimento[]>(
-    () => (etapa === "exame" ? EXAMES : CONSULTAS),
-    [etapa]
+    () => (tab === "exame" ? EXAMES : CONSULTAS),
+    [tab]
   );
 
   const onChange =
@@ -86,23 +110,17 @@ export function Agendar() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const raw = e.target.value;
       let value = raw;
-
       if (name === "telefone") value = maskPhone(raw);
-      if (name === "idade") value = onlyDigits(raw).slice(0, 3); // até 3 dígitos
-
+      if (name === "idade") value = onlyDigits(raw).slice(0, 3);
       const next = { ...form, [name]: value };
       setForm(next);
-
       if (name === "hora") {
-        setHoraMsg(
-          isHorarioDisponivel(value) ? "Horário disponível!" : "Horário não disponível."
-        );
+        setHoraMsg(isHorarioDisponivel(value) ? "Horário disponível" : "Horário indisponível");
       }
     };
 
-  const escolherProcedimento = (p: Procedimento, tipo: "Consulta" | "Exame") => {
-    setForm((f) => ({ ...f, tipo, procedimento: p }));
-  };
+  const escolherProcedimento = (p: Procedimento) =>
+    setForm((f) => ({ ...f, procedimento: p }));
 
   function validar(): string | null {
     if (!form.nome.trim()) return "Informe o nome do paciente.";
@@ -122,24 +140,17 @@ export function Agendar() {
     e.preventDefault();
     setErro("");
     setOkMsg("");
-
     const msg = validar();
-    if (msg) {
-      setErro(msg);
-      return;
-    }
+    if (msg) return setErro(msg);
 
-    // unidade escolhida automaticamente
     const unidade =
       Math.random() > 0.5
         ? "Rua Domingo de Soto 100 (Jardim Vila Mariana), São Paulo, SP"
         : "Rua Guaicurus 1274, São Paulo, SP, 05756-360";
 
-    // Atualiza vitrine local
     const novoLocal: Agendamento = { ...form, unidade };
     setAgendamentos((prev) => [novoLocal, ...prev]);
 
-    // Chamada real à API (POST)
     const payload: NovaConsulta = {
       paciente: form.nome,
       data: form.data,
@@ -154,89 +165,77 @@ export function Agendar() {
       setLoading(true);
       await ConsultasApi.criar(payload);
       setOkMsg("✅ Agendamento criado com sucesso!");
-      // Redireciona para resultados com feedback
-      setTimeout(() => {
-        navigate("/resultados?msg=Agendado%20com%20sucesso");
-      }, 600);
+      setTimeout(() => navigate("/resultados?msg=Agendado%20com%20sucesso"), 600);
+      setForm((f) => ({ ...f, procedimento: "", data: "", hora: "" }));
+      setTab("meus");
     } catch (e) {
       setErro((e as Error).message || "Erro ao agendar.");
     } finally {
       setLoading(false);
-      // reseta campos sensíveis
-      setForm((f) => ({ ...f, procedimento: "", data: "", hora: "" }));
-      setEtapa("meus");
     }
   }
 
-  const blocoAgendamento = (tipo: "Consulta" | "Exame") => (
+  /* =========== UI: Abas =========== */
+  const Tabs = () => (
+    <div className="mt-6 flex w-full justify-center">
+      <div className="inline-flex rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+        {[
+          { key: "consulta", label: "Consulta", icon: <Stethoscope size={16} /> },
+          { key: "exame", label: "Exame", icon: <FlaskConical size={16} /> },
+          { key: "meus", label: "Meus Agendamentos", icon: <ClipboardList size={16} /> },
+        ].map((t) => (
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key as typeof tab)}
+            className={`px-4 py-2 rounded-xl text-sm font-bold inline-flex items-center gap-2 transition
+              ${tab === t.key
+                ? "bg-orange-600 text-white"
+                : "text-slate-700 hover:bg-slate-50"}`}
+          >
+            {t.icon}{t.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  /* =========== UI: Resumo lateral =========== */
+  const ResumoSticky = () => (
+    <aside className="hidden lg:block lg:col-span-1">
+      <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="text-sm font-bold text-slate-800 mb-3">Resumo</div>
+        <ul className="space-y-2 text-sm text-slate-700">
+          <li className="flex items-center gap-2"><User2 size={16}/> <b>Paciente:</b>&nbsp;{form.nome || "—"}</li>
+          <li className="flex items-center gap-2"><Phone size={16}/> <b>Telefone:</b>&nbsp;{form.telefone || "—"}</li>
+          <li className="flex items-center gap-2"><CalendarDays size={16}/> <b>Data:</b>&nbsp;{form.data || "—"}</li>
+          <li className="flex items-center gap-2"><Clock size={16}/> <b>Hora:</b>&nbsp;{form.hora || "—"}</li>
+          <li className="flex items-center gap-2"><MapPin size={16}/> <b>Modalidade:</b>&nbsp;{form.modalidade}</li>
+          <li><b>Tipo:</b> {form.tipo}</li>
+          <li><b>Procedimento:</b> {form.procedimento || "—"}</li>
+        </ul>
+      </div>
+    </aside>
+  );
+
+  /* =========== UI: Form principal =========== */
+  const FormAgendar = () => (
     <form
       onSubmit={handleSubmit}
-      className="mt-8 bg-white/90 backdrop-blur rounded-2xl p-6 md:p-10 shadow-2xl border border-white/20 text-left space-y-8"
+      className="lg:col-span-2 mt-6 bg-white/90 backdrop-blur rounded-2xl p-6 md:p-8 shadow-xl border border-slate-200/70 space-y-8"
     >
-      {/* Cabeçalho da etapa */}
+      {/* header modal/tipo */}
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-blue-900">
-          {tipo === "Consulta" ? "Agendar Consulta" : "Agendar Exame"}
+        <h2 className="text-2xl md:text-3xl font-extrabold text-[#0f1c3a]">
+          {tab === "exame" ? "Agendar Exame" : "Agendar Consulta"}
         </h2>
-        <span className="px-3 py-1 text-sm font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-          {form.modalidade}
-        </span>
-      </div>
-
-      {/* Linha 1: nome, idade, telefone */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex flex-col gap-1">
-          <span className="font-semibold text-slate-700">Nome do paciente *</span>
-          <input
-            name="nome"
-            value={form.nome}
-            onChange={onChange("nome")}
-            placeholder="Ex.: Marina Tamagnini"
-            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 outline-none"
-            required
-          />
-        </label>
-        <label className="flex flex-col gap-1">
-          <span className="font-semibold text-slate-700">Idade *</span>
-          <input
-            name="idade"
-            value={form.idade}
-            onChange={onChange("idade")}
-            placeholder="Ex.: 20"
-            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 outline-none"
-            required
-            inputMode="numeric"
-          />
-        </label>
-        <label className="flex flex-col gap-1">
-          <span className="font-semibold text-slate-700">Telefone *</span>
-          <input
-            name="telefone"
-            value={form.telefone}
-            onChange={onChange("telefone")}
-            placeholder="(11) 90000-0000"
-            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 outline-none"
-            required
-            inputMode="tel"
-          />
-        </label>
-      </div>
-
-      {/* Modalidade */}
-      <div>
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">
-          Como deseja realizar o atendimento?
-        </h3>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex gap-2">
           {(["Presencial", "Telemedicina"] as const).map((m) => (
             <label
               key={m}
-              className={`cursor-pointer rounded-2xl border-2 px-4 py-2 font-medium transition
-                ${
-                  form.modalidade === m
-                    ? "bg-blue-600 border-blue-600 text-white"
-                    : "border-blue-900 text-blue-900 hover:bg-blue-500 hover:text-white"
-                }`}
+              className={`cursor-pointer rounded-2xl border-2 px-4 py-2 text-sm font-semibold transition
+              ${form.modalidade === m
+                ? "bg-orange-600 border-orange-600 text-white"
+                : "border-slate-300 text-slate-800 hover:bg-orange-50"}`}
             >
               <input
                 type="radio"
@@ -252,23 +251,58 @@ export function Agendar() {
         </div>
       </div>
 
-      {/* Procedimentos */}
+      {/* linha 1 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <label className="flex flex-col gap-1">
+          <span className="font-semibold text-slate-700">Nome do paciente *</span>
+          <input
+            name="nome"
+            value={form.nome}
+            onChange={onChange("nome")}
+            placeholder="Ex.: Marina Tamagnini"
+            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none"
+            required
+          />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="font-semibold text-slate-700">Idade *</span>
+          <input
+            name="idade"
+            value={form.idade}
+            onChange={onChange("idade")}
+            placeholder="Ex.: 20"
+            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none"
+            required
+            inputMode="numeric"
+          />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="font-semibold text-slate-700">Telefone *</span>
+          <input
+            name="telefone"
+            value={form.telefone}
+            onChange={onChange("telefone")}
+            placeholder="(11) 90000-0000"
+            className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none"
+            required
+            inputMode="tel"
+          />
+        </label>
+      </div>
+
+      {/* procedimentos */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">
-          Escolha o procedimento:
-        </h3>
-        <div className="flex flex-wrap gap-3">
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">Escolha o procedimento</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {procedimentos.map((p) => (
             <button
               key={p}
               type="button"
-              onClick={() => escolherProcedimento(p, tipo)}
-              className={`px-4 py-2 rounded-xl border-2 transition font-medium
-                ${
-                  form.procedimento === p
-                    ? "bg-indigo-600 border-indigo-600 text-white"
-                    : "border-indigo-900 text-indigo-900 hover:bg-indigo-500 hover:text-white"
-                }`}
+              onClick={() => escolherProcedimento(p)}
+              className={`text-left px-4 py-3 rounded-xl border-2 transition text-sm font-semibold
+                ${form.procedimento === p
+                  ? "bg-[#0f1c3a] border-[#0f1c3a] text-white shadow"
+                  : "border-slate-300 text-slate-800 hover:bg-slate-50"}`}
               aria-pressed={form.procedimento === p}
             >
               {p}
@@ -277,11 +311,9 @@ export function Agendar() {
         </div>
       </div>
 
-      {/* Data e hora */}
+      {/* data e hora */}
       <div>
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">
-          Escolha a data e horário:
-        </h3>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">Data e horário</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="flex flex-col gap-1">
             <span className="font-medium text-slate-700">Data *</span>
@@ -289,9 +321,10 @@ export function Agendar() {
               type="date"
               name="data"
               value={form.data}
+              min={todayISO()}
               onChange={onChange("data")}
               required
-              className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 outline-none"
+              className="p-3 rounded-xl border border-slate-300 focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none"
             />
           </label>
           <label className="flex flex-col gap-1">
@@ -302,25 +335,24 @@ export function Agendar() {
               value={form.hora}
               onChange={onChange("hora")}
               required
-              className={`p-3 rounded-xl border focus:ring-4 focus:ring-blue-200 focus:border-blue-500 outline-none ${
-                horaMsg?.includes("não") ? "border-red-500" : "border-slate-300"
+              className={`p-3 rounded-xl border outline-none focus:ring-4 focus:ring-orange-200 focus:border-orange-500 ${
+                horaMsg?.includes("indisponível") ? "border-rose-500" : "border-slate-300"
               }`}
             />
           </label>
         </div>
         {horaMsg && (
           <p
-            className={`mt-1 font-semibold ${
-              horaMsg.includes("não") ? "text-red-600" : "text-green-600"
+            className={`mt-1 text-sm font-semibold ${
+              horaMsg.includes("indisponível") ? "text-rose-600" : "text-emerald-600"
             }`}
-            role="status"
           >
             {horaMsg}
           </p>
         )}
       </div>
 
-      {/* Alertas */}
+      {/* alertas */}
       {erro && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 text-rose-700 px-4 py-3">
           {erro}
@@ -332,100 +364,93 @@ export function Agendar() {
         </div>
       )}
 
-      {/* Ações */}
+      {/* ações */}
       <div className="flex flex-col sm:flex-row justify-between gap-3 pt-2">
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center justify-center gap-2 bg-orange-600 text-white font-bold px-6 py-3 rounded-xl
+                     hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
         >
           {loading ? "Agendando..." : "Confirmar Agendamento"}
+          {!loading && <CheckCircle2 size={18} className="opacity-90" />}
         </button>
         <button
           type="button"
-          onClick={() => setEtapa("menu")}
-          className="bg-slate-200 text-slate-800 font-bold px-6 py-3 rounded-xl hover:bg-slate-300 transition"
+          onClick={() => setTab("consulta")}
+          className="bg-white border border-slate-300 text-slate-800 font-bold px-6 py-3 rounded-xl hover:bg-slate-50 transition"
         >
-          Voltar sem Agendar
+          Voltar ao início
         </button>
       </div>
     </form>
   );
 
+  /* =========== UI: Meus agendamentos =========== */
+  const MeusCards = () => (
+    <section className="lg:col-span-3">
+      {agendamentos.length === 0 ? (
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 text-slate-600">
+          Você ainda não possui nenhum agendamento.
+        </div>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {agendamentos.map((a, i) => (
+            <article
+              key={i}
+              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition text-left"
+            >
+              <h3 className="text-[#0f1c3a] font-extrabold mb-2">
+                {a.tipo} — {a.procedimento}
+              </h3>
+              <ul className="text-slate-700 text-sm space-y-1">
+                <li><b>Paciente:</b> {a.nome} ({a.idade} anos)</li>
+                <li><b>Telefone:</b> {a.telefone}</li>
+                <li><b>Data:</b> {a.data} • <b>Hora:</b> {a.hora}</li>
+                <li><b>Modalidade:</b> {a.modalidade}</li>
+                <li><b>Unidade:</b> {a.unidade}</li>
+              </ul>
+            </article>
+          ))}
+        </div>
+      )}
+      <div className="mt-6">
+        <button
+          onClick={() => setTab("consulta")}
+          className="px-6 py-3 rounded-xl bg-[#0f1c3a] text-white font-bold hover:bg-[#132857] transition"
+        >
+          Voltar para o menu
+        </button>
+      </div>
+    </section>
+  );
+
+  /* =========== Render =========== */
   return (
-    <main className="font-sans min-h-screen bg-gradient-to-b from-slate-50 to-white px-6 py-10 md:py-14">
+    <main className="min-h-screen font-sans bg-gradient-to-b from-slate-50 to-white px-6 py-10 md:py-14">
       <div className="mx-auto w-full max-w-6xl">
+        {/* título */}
         <header className="text-center">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3 text-blue-900 drop-shadow-sm">
-            Agenda de Consultas
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-3 text-[#0f1c3a]">
+            Agendamentos
           </h1>
           <p className="text-slate-600 max-w-2xl mx-auto">
             Escolha o tipo de atendimento, selecione o procedimento e confirme seu horário.
-            Você também pode revisar seus agendamentos recentes.
           </p>
         </header>
 
-        {/* MENU INICIAL */}
-        {etapa === "menu" && (
-          <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { label: "Agendar Consulta", next: "consulta" },
-              { label: "Agendar Exame", next: "exame" },
-              { label: "Meus Agendamentos", next: "meus" },
-            ].map((b) => (
-              <button
-                key={b.next}
-                onClick={() => setEtapa(b.next as never)}
-                className="h-32 rounded-2xl bg-blue-900 text-white font-extrabold text-lg shadow-lg hover:scale-[1.02] hover:bg-blue-700 transition"
-              >
-                {b.label}
-              </button>
-            ))}
-          </section>
-        )}
+        <Tabs />
 
-        {/* FORMULÁRIOS */}
-        {etapa === "consulta" && blocoAgendamento("Consulta")}
-        {etapa === "exame" && blocoAgendamento("Exame")}
-
-        {/* MEUS AGENDAMENTOS */}
-        {etapa === "meus" && (
-          <section className="mt-10">
-            {agendamentos.length === 0 ? (
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 text-slate-600">
-                Você ainda não possui nenhum agendamento conosco.
-              </div>
-            ) : (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {agendamentos.map((a, i) => (
-                  <article
-                    key={i}
-                    className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition text-left"
-                  >
-                    <h3 className="text-blue-900 font-bold mb-2">
-                      {a.tipo} ({a.modalidade}): {a.procedimento}
-                    </h3>
-                    <ul className="text-slate-700 text-sm space-y-1">
-                      <li><strong>Paciente:</strong> {a.nome} ({a.idade} anos)</li>
-                      <li><strong>Telefone:</strong> {a.telefone}</li>
-                      <li><strong>Data:</strong> {a.data} • <strong>Hora:</strong> {a.hora}</li>
-                      <li><strong>Unidade:</strong> {a.unidade}</li>
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            <div className="mt-6">
-              <button
-                onClick={() => setEtapa("menu")}
-                className="px-6 py-3 rounded-xl bg-blue-900 text-white font-bold hover:bg-blue-700 transition"
-              >
-                Voltar para o Menu Principal
-              </button>
-            </div>
-          </section>
-        )}
+        {/* grid principal */}
+        <section className="mt-8 grid lg:grid-cols-3 gap-6 items-start">
+          {(tab === "consulta" || tab === "exame") && (
+            <>
+              <ResumoSticky />
+              <FormAgendar />
+            </>
+          )}
+          {tab === "meus" && <MeusCards />}
+        </section>
       </div>
     </main>
   );
