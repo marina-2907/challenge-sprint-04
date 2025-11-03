@@ -1,16 +1,73 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ConsultasApi, type Consulta } from "../services/Api";
+import { CalendarDays, Clock, MapPin, RefreshCw, X, FileDown, Plus } from "lucide-react";
 
-// Alerta simples lendo ?msg= da URL (feedback pós-ação)
+/* ——— Alerta simples lendo ?msg= da URL (feedback pós-ação) ——— */
 function AlertFromQuery() {
   const { search } = useLocation();
   const params = useMemo(() => new URLSearchParams(search), [search]);
   const msg = params.get("msg");
   if (!msg) return null;
   return (
-    <div className="mx-auto max-w-6xl mb-6 rounded border border-green-200 bg-green-50 text-green-700 px-4 py-2">
+    <div className="mx-auto max-w-7xl mb-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 px-4 py-2">
       {decodeURIComponent(msg)}
+    </div>
+  );
+}
+
+/* ——— Helpers UI ——— */
+const StatusPill = ({ status }: { status?: string }) => {
+  const s = (status || "AGENDADA").toUpperCase();
+  const map = {
+    AGENDADA: "bg-blue-100 text-blue-800",
+    CANCELADA: "bg-rose-100 text-rose-700",
+    CONCLUIDA: "bg-emerald-100 text-emerald-700",
+  } as const;
+  const cls = map[s as keyof typeof map] ?? "bg-slate-100 text-slate-700";
+  return <span className={`text-[11px] font-bold rounded-full px-2.5 py-1 ${cls}`}>{s}</span>;
+};
+
+const Skel = () => (
+  <div className="animate-pulse rounded-2xl border border-slate-200 bg-white p-4">
+    <div className="h-4 w-1/3 bg-slate-200 rounded" />
+    <div className="mt-3 space-y-2">
+      <div className="h-3 w-2/3 bg-slate-200 rounded" />
+      <div className="h-3 w-1/2 bg-slate-200 rounded" />
+      <div className="h-3 w-1/2 bg-slate-200 rounded" />
+    </div>
+    <div className="mt-4 grid grid-cols-3 gap-2">
+      <div className="h-9 bg-slate-200 rounded" />
+      <div className="h-9 bg-slate-200 rounded" />
+      <div className="h-9 bg-slate-200 rounded" />
+    </div>
+  </div>
+);
+
+/* ——— Modais básicos ——— */
+function ModalBase({
+  title,
+  onClose,
+  children,
+  footer,
+}: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-black/40">
+      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl border border-slate-200">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-extrabold text-[#0f1c3a]">{title}</h3>
+          <button onClick={onClose} className="p-1.5 rounded hover:bg-slate-100">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="mt-4">{children}</div>
+        {footer && <div className="mt-4 flex justify-end gap-2">{footer}</div>}
+      </div>
     </div>
   );
 }
@@ -33,8 +90,9 @@ export function Resultados() {
       setLoading(true);
       const dados = await ConsultasApi.listar();
       setLista(dados);
+      setErro("");
     } catch (e) {
-      setErro((e as Error).message);
+      setErro((e as Error).message || "Erro ao carregar consultas.");
     } finally {
       setLoading(false);
     }
@@ -79,7 +137,7 @@ export function Resultados() {
     }
   }
 
-  // ====== Cards de download (mantidos do seu layout) ======
+  // ====== Downloads ======
   const downloadFile = (filePath: string, fileName: string) => {
     const link = document.createElement("a");
     link.href = filePath;
@@ -90,20 +148,25 @@ export function Resultados() {
   const cardDownload = (img: string, label: string, key: string, file: string) => (
     <div
       key={key}
-      className="flex flex-col items-center bg-white rounded-2xl p-8 w-full max-w-[260px] text-center shadow-md border border-slate-200
-                 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-blue-400"
+      className="group flex flex-col items-center bg-white rounded-2xl p-7 w-full max-w-[280px] text-center shadow-sm border border-slate-200
+                 transition-all hover:-translate-y-1 hover:shadow-lg hover:border-orange-300/80"
     >
-      <img
-        src={img}
-        alt={label}
-        className="h-32 w-32 object-contain rounded-xl mb-4 transition-transform duration-300 hover:scale-110"
-      />
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">{label}</h3>
+      <div className="relative">
+        <img
+          src={img}
+          alt={label}
+          className="h-28 w-28 object-contain rounded-xl mb-3 transition-transform group-hover:scale-105"
+        />
+        <span className="absolute -right-2 -top-2 inline-flex items-center justify-center h-7 w-7 rounded-full bg-orange-100 text-orange-700">
+          <FileDown size={16} />
+        </span>
+      </div>
+      <h3 className="text-base font-extrabold text-[#0f1c3a]">{label}</h3>
 
       <button
         onClick={() => downloadFile(file, `${label.toLowerCase()}.txt`)}
-        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-full shadow-md
-                   hover:from-indigo-600 hover:to-blue-600 hover:shadow-lg transition-transform hover:-translate-y-0.5"
+        className="mt-3 w-full inline-flex items-center justify-center gap-2 bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl shadow
+                   hover:bg-orange-700 transition"
       >
         Baixar {label}
       </button>
@@ -111,36 +174,62 @@ export function Resultados() {
   );
 
   return (
-    <main className="font-sans min-h-screen py-10 md:py-16 px-6 bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <main className="font-sans min-h-screen py-10 md:py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
       {/* Feedback via query string */}
       <AlertFromQuery />
 
+      {/* Título */}
       <section className="mx-auto w-full max-w-7xl">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-blue-900 text-center tracking-wide drop-shadow-sm">
-          Resultados do Paciente
-        </h1>
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-4 py-1.5 border border-orange-200">
+            <span className="h-2 w-2 rounded-full bg-orange-500" />
+            <span className="text-[13px] font-semibold tracking-wide">Resultados</span>
+          </div>
+          <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-[#0f1c3a]">
+            Resultados do Paciente
+          </h1>
+        </div>
 
         {/* ====== BLOCO 1 — Minhas Consultas (CRUD) ====== */}
         <div className="mt-8 md:mt-12">
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <h2 className="text-xl md:text-2xl font-bold text-slate-800">
+            <h2 className="text-xl md:text-2xl font-extrabold text-[#0f1c3a]">
               Minhas Consultas
             </h2>
-            <button
-              onClick={() => navigate("/agendar")}
-              className="rounded-xl bg-blue-600 text-white font-semibold px-4 py-2 hover:bg-blue-700"
-            >
-              + Nova consulta
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={carregar}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                <RefreshCw size={16} /> Atualizar
+              </button>
+              <button
+                onClick={() => navigate("/agendar")}
+                className="inline-flex items-center gap-2 rounded-xl bg-orange-600 text-white font-semibold px-4 py-2 hover:bg-orange-700"
+              >
+                <Plus size={16} /> Nova consulta
+              </button>
+            </div>
           </div>
 
-          {erro && <p className="mt-4 text-red-600">{erro}</p>}
-          {loading && <p className="mt-4">Carregando…</p>}
+          {erro && (
+            <p className="mt-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 px-4 py-3">
+              {erro}
+            </p>
+          )}
+
+          {loading && (
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <Skel />
+              <Skel />
+              <Skel />
+            </div>
+          )}
 
           {!loading && !erro && (
             <>
               {lista.length === 0 ? (
-                <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 text-slate-600">
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 text-slate-600">
                   Nenhuma consulta encontrada.
                 </div>
               ) : (
@@ -148,49 +237,51 @@ export function Resultados() {
                   {lista.map((c) => (
                     <article
                       key={c.id}
-                      className="flex flex-col rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                      className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition"
                     >
                       <header className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold text-slate-800">
+                        <h3 className="text-[15px] md:text-base font-extrabold text-[#0f1c3a]">
                           #{c.id} • {c.tipo ?? "Consulta"}
                         </h3>
-                        <span
-                          className={`text-xs font-bold rounded px-2 py-1 ${
-                            c.status === "AGENDADA"
-                              ? "bg-blue-100 text-blue-800"
-                              : c.status === "CANCELADA"
-                              ? "bg-rose-100 text-rose-700"
-                              : "bg-emerald-100 text-emerald-700"
-                          }`}
-                        >
-                          {c.status}
-                        </span>
+                        <StatusPill status={c.status} />
                       </header>
 
-                      <div className="mt-2 text-sm text-slate-600">
-                        <p><strong>Paciente:</strong> {c.paciente}</p>
-                        <p>
-                          <strong>Data:</strong> {c.data} • <strong>Hora:</strong> {c.hora}
+                      <div className="mt-3 text-[13px] md:text-sm text-slate-700 space-y-1.5">
+                        <p><b>Paciente:</b> {c.paciente}</p>
+                        <p className="flex items-center gap-1">
+                          <CalendarDays size={16} className="text-orange-600" />
+                          <b>Data:</b>&nbsp;{c.data}
                         </p>
-                        {c.modalidade && <p><strong>Modalidade:</strong> {c.modalidade}</p>}
-                        {c.unidade && <p><strong>Unidade:</strong> {c.unidade}</p>}
+                        <p className="flex items-center gap-1">
+                          <Clock size={16} className="text-orange-600" />
+                          <b>Hora:</b>&nbsp;{c.hora}
+                        </p>
+                        {c.modalidade && (
+                          <p><b>Modalidade:</b> {c.modalidade}</p>
+                        )}
+                        {c.unidade && (
+                          <p className="flex items-start gap-1">
+                            <MapPin size={16} className="text-orange-600 mt-0.5" />
+                            <span><b>Unidade:</b> {c.unidade}</span>
+                          </p>
+                        )}
                       </div>
 
                       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <button
-                          className="rounded bg-amber-500 text-white font-semibold py-2 hover:bg-amber-600"
+                          className="rounded-xl bg-amber-500 text-white font-semibold py-2 hover:bg-amber-600"
                           onClick={() => setEditing({ id: c.id, data: c.data, hora: c.hora })}
                         >
                           Reagendar
                         </button>
                         <button
-                          className="rounded bg-rose-500 text-white font-semibold py-2 hover:bg-rose-600"
+                          className="rounded-xl bg-rose-500 text-white font-semibold py-2 hover:bg-rose-600"
                           onClick={() => setCancelando({ id: c.id, motivo: "" })}
                         >
                           Cancelar
                         </button>
                         <button
-                          className="rounded bg-slate-200 text-slate-800 font-semibold py-2 hover:bg-slate-300 sm:col-span-2"
+                          className="rounded-xl bg-slate-200 text-slate-800 font-semibold py-2 hover:bg-slate-300 sm:col-span-2"
                           onClick={() => onDelete(c.id)}
                         >
                           Excluir
@@ -204,29 +295,26 @@ export function Resultados() {
           )}
         </div>
 
-        {/* ====== BLOCO 2 — Downloads (seu layout original) ====== */}
+        {/* ====== BLOCO 2 — Meus Documentos (Downloads) ====== */}
         <div className="mt-12 md:mt-16">
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#0f1c3a] mb-6">
             Meus Documentos
           </h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8 md:gap-12 w-full justify-items-center">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-8 w-full justify-items-center">
             {cardDownload("imgs/exame.jpg", "Exames", "exames", "./txt/exames.txt")}
             {cardDownload("imgs/novo laudo.png", "Laudos", "laudos", "./txt/laudos.txt")}
             {cardDownload("imgs/receita.avif", "Receitas", "receitas", "./txt/receita.txt")}
             <div
-              className="flex flex-col items-center bg-white rounded-2xl p-8 w-full max-w-[260px] text-center shadow-md border border-slate-200
-                         transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-blue-400 cursor-pointer"
+              className="group flex flex-col items-center bg-white rounded-2xl p-7 w-full max-w-[280px] text-center shadow-sm border border-slate-200
+                         transition-all hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 cursor-pointer"
               onClick={() => navigate("/")}
             >
               <img
                 src="imgs/voltar.png"
                 alt="Voltar"
-                className="h-32 w-32 object-contain rounded-xl mb-4 transition-transform duration-300 hover:scale-110"
+                className="h-28 w-28 object-contain rounded-xl mb-3 transition-transform group-hover:scale-105"
               />
-              <button
-                className="w-full bg-gradient-to-r from-gray-400 to-gray-500 text-white font-semibold px-6 py-3 rounded-full shadow-md
-                           hover:from-gray-500 hover:to-gray-400 hover:shadow-lg transition-transform hover:-translate-y-0.5"
-              >
+              <button className="w-full inline-flex items-center justify-center gap-2 bg-slate-600 text-white font-semibold px-5 py-2.5 rounded-xl shadow hover:bg-slate-700 transition">
                 Ir para Home
               </button>
             </div>
@@ -236,72 +324,78 @@ export function Resultados() {
 
       {/* ====== Modal Reagendar ====== */}
       {editing && (
-        <div className="fixed inset-0 bg-black/40 grid place-items-center p-4 z-50">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6">
-            <h3 className="text-xl font-bold mb-3">
-              Reagendar #{editing.id}
-            </h3>
-            <div className="grid gap-3">
+        <ModalBase
+          title={`Reagendar #${editing.id}`}
+          onClose={() => setEditing(null)}
+          footer={
+            <>
+              <button
+                className="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300"
+                onClick={() => setEditing(null)}
+              >
+                Fechar
+              </button>
+              <button
+                className="px-4 py-2 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-700"
+                onClick={onReagendar}
+              >
+                Salvar
+              </button>
+            </>
+          }
+        >
+          <div className="grid gap-3">
+            <label className="flex flex-col gap-1">
+              <span className="text-sm font-semibold text-slate-700">Data</span>
               <input
                 type="date"
-                className="rounded border border-slate-300 p-2"
+                className="rounded-xl border border-slate-300 p-2 focus:outline-none focus:ring-4 focus:ring-orange-200 focus:border-orange-500"
                 value={editing.data}
                 onChange={(e) => setEditing({ ...editing, data: e.target.value })}
               />
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-sm font-semibold text-slate-700">Hora</span>
               <input
                 type="time"
-                className="rounded border border-slate-300 p-2"
+                className="rounded-xl border border-slate-300 p-2 focus:outline-none focus:ring-4 focus:ring-orange-200 focus:border-orange-500"
                 value={editing.hora}
                 onChange={(e) => setEditing({ ...editing, hora: e.target.value })}
               />
-              <div className="flex gap-2 justify-end">
-                <button
-                  className="px-4 py-2 rounded bg-slate-200"
-                  onClick={() => setEditing(null)}
-                >
-                  Fechar
-                </button>
-                <button
-                  className="px-4 py-2 rounded bg-blue-600 text-white"
-                  onClick={onReagendar}
-                >
-                  Salvar
-                </button>
-              </div>
-            </div>
+            </label>
           </div>
-        </div>
+        </ModalBase>
       )}
 
       {/* ====== Modal Cancelar ====== */}
       {cancelando && (
-        <div className="fixed inset-0 bg-black/40 grid place-items-center p-4 z-50">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6">
-            <h3 className="text-xl font-bold mb-3">
-              Cancelar #{cancelando.id}
-            </h3>
-            <textarea
-              className="w-full min-h-[100px] rounded border border-slate-300 p-2"
-              placeholder="Motivo do cancelamento"
-              value={cancelando.motivo}
-              onChange={(e) => setCancelando({ ...cancelando, motivo: e.target.value })}
-            />
-            <div className="mt-3 flex gap-2 justify-end">
+        <ModalBase
+          title={`Cancelar #${cancelando.id}`}
+          onClose={() => setCancelando(null)}
+          footer={
+            <>
               <button
-                className="px-4 py-2 rounded bg-slate-200"
+                className="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300"
                 onClick={() => setCancelando(null)}
               >
                 Fechar
               </button>
               <button
-                className="px-4 py-2 rounded bg-rose-600 text-white"
+                className="px-4 py-2 rounded-xl bg-rose-600 text-white font-semibold hover:bg-rose-700"
                 onClick={onCancelar}
               >
                 Confirmar cancelamento
               </button>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        >
+          <textarea
+            className="w-full min-h-[110px] rounded-xl border border-slate-300 p-3 text-sm focus:outline-none focus:ring-4 focus:ring-rose-100 focus:border-rose-400"
+            placeholder="Motivo do cancelamento"
+            value={cancelando.motivo}
+            onChange={(e) => setCancelando({ ...cancelando, motivo: e.target.value })}
+          />
+        </ModalBase>
       )}
     </main>
   );

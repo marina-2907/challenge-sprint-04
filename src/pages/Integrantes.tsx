@@ -1,3 +1,5 @@
+import { Linkedin, Github } from "lucide-react";
+
 export function Integrantes() {
   const membros = [
     {
@@ -24,53 +26,57 @@ export function Integrantes() {
   ];
 
   return (
-    <main className="px-6 py-16 bg-gradient-to-b from-slate-50 to-white min-h-screen font-sans">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-blue-900 text-center mb-12">
-          Nosso Grupo
-        </h1>
+    <main className="font-sans min-h-screen bg-gradient-to-b from-slate-50 to-white px-6 py-12">
+      <section className="max-w-6xl mx-auto">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-4 py-1.5 border border-orange-200">
+            <span className="h-2 w-2 rounded-full bg-orange-500" />
+            <span className="text-[13px] font-semibold tracking-wide">Equipe</span>
+          </div>
+          <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-[#0f1c3a]">
+            Nosso Grupo
+          </h1>
+          <p className="mt-2 text-slate-600 max-w-3xl mx-auto">
+            Estudantes da FIAP, apaixonados por tecnologia e inovação. Este projeto busca tornar a saúde digital mais acessível, humana e segura.
+          </p>
+        </div>
 
-        <p className="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-16">
-          Somos estudantes da FIAP apaixonados por tecnologia e inovação.
-          Este projeto foi desenvolvido com o objetivo de transformar
-          a saúde digital em algo mais acessível, humano e seguro.
-        </p>
-
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {membros.map((aluno) => (
-            <div
+            <article
               key={aluno.nome}
-              className="bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-transform text-center"
+              className="bg-white/90 backdrop-blur p-7 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition text-center"
             >
               <img
                 src={aluno.img}
                 alt={aluno.nome}
-                className="w-32 h-32 mx-auto rounded-full object-cover mb-6 ring-4 ring-blue-200"
+                className="w-28 h-28 mx-auto rounded-full object-cover mb-5 ring-4 ring-orange-100"
               />
-              <h3 className="text-lg font-semibold text-gray-800">
-                {aluno.nome}
-              </h3>
-              <p className="text-sm text-gray-600 mb-4">{aluno.rm}</p>
-              <div className="flex justify-center gap-5">
-                <a href={aluno.linkedin} target="_blank" rel="noreferrer">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                    alt="LinkedIn"
-                    className="w-7 h-7 hover:scale-110 transition-transform"
-                  />
+              <h3 className="text-[17px] font-extrabold text-[#0f1c3a]">{aluno.nome}</h3>
+              <p className="text-sm text-slate-600 mb-5">{aluno.rm}</p>
+
+              <div className="flex justify-center gap-3">
+                <a
+                  href={aluno.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-slate-700 hover:text-orange-600 font-semibold text-sm bg-slate-100 hover:bg-orange-50 border border-slate-200 hover:border-orange-200 px-3 py-2 rounded-xl transition"
+                >
+                  <Linkedin size={16} /> LinkedIn
                 </a>
-                <a href={aluno.github} target="_blank" rel="noreferrer">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                    alt="GitHub"
-                    className="w-7 h-7 hover:scale-110 transition-transform"
-                  />
+                <a
+                  href={aluno.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-slate-700 hover:text-orange-600 font-semibold text-sm bg-slate-100 hover:bg-orange-50 border border-slate-200 hover:border-orange-200 px-3 py-2 rounded-xl transition"
+                >
+                  <Github size={16} /> GitHub
                 </a>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </div>
+      </section>
     </main>
   );
 }
