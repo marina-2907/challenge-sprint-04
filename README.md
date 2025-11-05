@@ -106,6 +106,7 @@ TB_LOGIN
 - Primary Keys, Foreign Keys, unique e validador de datas e horários
 
 
+---
 
  - Equipe
    
@@ -120,7 +121,7 @@ Nome	RM	Turma	GitHub	LinkedIn
 🔹Marina Tamagnini Magalhães	561786	1TDSPX	🔗 https://github.com/marina-2907
 	🔗 https://linkedin.com/in/marina-t-36b14328b
 
-
+---
 
 - Links Importantes
 
