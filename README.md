@@ -108,7 +108,7 @@ Primary Keys, Foreign Keys, unique e validador de datas e horários
 
 ---
 
- - Equipe
+ ## Equipe
    
 Nome	RM	Turma	GitHub	LinkedIn
 
