@@ -106,14 +106,27 @@ TB_LOGIN
 - Primary Keys, Foreign Keys, unique e validador de datas e horários
 
  - Equipe
-Nome	------------------------- RM --- Turma ----------- GitHub ------------------------------------ LinkedIn
-Bruno Vinicius Barbosa	      566366	 1TDSPY	   github.com/brunovinicius02	              linkedin.com/in/brunovbarbosaa
-João Pedro Bitencourt Goldoni	564339	 1TDSPX	   github.com/JoaoPedroBitencourtGoldoni	  linkedin.com/in/joaopedrogoldoni
-Marina Tamagnini Magalhães	  561786	 1TDSPX	   github.com/marina-2907	                  linkedin.com/in/marina-t-36b14328b
+ - 
+Nome	RM	Turma	GitHub	LinkedIn
 
-📎 Links Importantes
-🔹 Repositório: https://github.com/marina-2907/challenge-sprint-04
-🎥 Vídeo de Apresentação: https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
+Bruno Vinicius Barbosa	566366	1TDSPY	🔗 https://github.com/brunovinicius02
+	🔗 https://linkedin.com/in/brunovbarbosaa
+
+João Pedro Bitencourt Goldoni	564339	1TDSPX	🔗 https://github.com/JoaoPedroBitencourtGoldoni
+	🔗 https://linkedin.com/in/joaopedrogoldoni
+
+Marina Tamagnini Magalhães	561786	1TDSPX	🔗 https://github.com/marina-2907
+	🔗 https://linkedin.com/in/marina-t-36b14328b
+
+
+
+- Links Importantes
+
+🔹 Repositório GitHub:
+👉 https://github.com/marina-2907/challenge-sprint-04
+
+🔹 Vídeo de Apresentação:
+▶️ https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
 
 
 
