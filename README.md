@@ -107,7 +107,7 @@ O sistema estará disponível em http://localhost:5173.
 
 ## Links Importantes
 
-- 📹 **Vídeo de Apresentação**: [Assista no YouTube](https://youtu.be/eIkZiWmrJ6s?si=8ScZJ8iuMIU9_yLr)  
+- 📹 **Vídeo de Apresentação**: [Assista no YouTube](https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4)  
 - 💻 **Repositório no GitHub**: [challenge-sprint-03](https://github.com/marina-2907/challenge-sprint-03)
 
 
