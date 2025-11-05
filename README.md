@@ -112,7 +112,7 @@ João Pedro Bitencourt Goldoni	564339	 1TDSPX	   github.com/JoaoPedroBitencourtG
 Marina Tamagnini Magalhães	  561786	 1TDSPX	   github.com/marina-2907	                  linkedin.com/in/marina-t-36b14328b
 
 📎 Links Importantes
-🔹 Repositório: https://github.com/marina-2907/challenge-sprint-03
+🔹 Repositório: https://github.com/marina-2907/challenge-sprint-04
 🎥 Vídeo de Apresentação: https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
 
 
