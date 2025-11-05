@@ -103,7 +103,7 @@ TB_RECEITA
 
 TB_LOGIN
 
-- Primary Keys, Foreign Keys, unique e validador de datas e horários
+Primary Keys, Foreign Keys, unique e validador de datas e horários
 
 
 ---
