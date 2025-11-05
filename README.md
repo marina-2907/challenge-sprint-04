@@ -4,7 +4,7 @@ Sistema Web + API com Integração ao Banco de Dados
 
 ---
 
-##  Sobre o Projeto
+## 🔹 Sobre o Projeto
 
 Este repositório contém a entrega final do **IMREA Assistente**, uma solução web desenvolvida para a Telemedicina do Hospital das Clínicas, com o propósito de:
 
@@ -21,7 +21,7 @@ O sistema une:
 
 ---
 
-##  Evoluções da Sprint Final
+## 🔹 Evoluções da Sprint Final
 
 | Recurso | Status |
 |--------|:-----:|
@@ -34,7 +34,7 @@ O sistema une:
 
 ---
 
-##  Arquitetura Geral
+## 🔹 Arquitetura Geral
 
 React (Vite + Tailwind) → API Flask → Oracle Database
 
@@ -46,7 +46,7 @@ Scripts SQL desenvolvidos para criação e carga de dados
 
 ---
 
-##  Tecnologias Utilizadas
+## 🔹 Tecnologias Utilizadas
 
 | Camada | Tecnologias |
 |--------|-------------|
@@ -105,17 +105,19 @@ TB_LOGIN
 
 - Primary Keys, Foreign Keys, unique e validador de datas e horários
 
+
+
  - Equipe
- - 
+   
 Nome	RM	Turma	GitHub	LinkedIn
 
-Bruno Vinicius Barbosa	566366	1TDSPY	🔗 https://github.com/brunovinicius02
+🔹Bruno Vinicius Barbosa	566366	1TDSPY	🔗 https://github.com/brunovinicius02
 	🔗 https://linkedin.com/in/brunovbarbosaa
 
-João Pedro Bitencourt Goldoni	564339	1TDSPX	🔗 https://github.com/JoaoPedroBitencourtGoldoni
+🔹João Pedro Bitencourt Goldoni	564339	1TDSPX	🔗 https://github.com/JoaoPedroBitencourtGoldoni
 	🔗 https://linkedin.com/in/joaopedrogoldoni
 
-Marina Tamagnini Magalhães	561786	1TDSPX	🔗 https://github.com/marina-2907
+🔹Marina Tamagnini Magalhães	561786	1TDSPX	🔗 https://github.com/marina-2907
 	🔗 https://linkedin.com/in/marina-t-36b14328b
 
 
