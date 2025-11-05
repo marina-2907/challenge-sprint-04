@@ -1,114 +1,119 @@
-# IMREA Assistente – HC Telemedicina
-
-Sistema Web Demonstrativo para Atendimento Digital ao Paciente  
- Entrega da Sprint 3 do Challenge FIAP
-
----
-
-##  Introdução
-
-Este repositório contém a **terceira entrega** do sistema web de telemedicina desenvolvido para o Instituto de Medicina Física e Reabilitação (IMREA) do Hospital das Clínicas.
-
-O objetivo é representar, de forma **realista e didática**, o fluxo de interação entre pacientes e um ambiente de saúde digital.  
-Nesta Sprint 3, ampliamos as funcionalidades, refinamos a interface e reforçamos boas práticas de **acessibilidade**, **usabilidade** e **arquitetura front-end**.
+# IMREA Assistente – HC Telemedicina  
+Sistema Web + API com Integração ao Banco de Dados  
+- Entrega Final – Sprint 4 | Challenge FIAP + IMREA (HCFMUSP)
 
 ---
 
-## Objetivos da Sprint 3
+##  Sobre o Projeto
 
-- **Evolução da experiência de agendamento**  
-  Permitir ao paciente escolher **modalidade** (Presencial ou Telemedicina) e facilitar o gerenciamento de horários disponíveis.
+Este repositório contém a entrega final do **IMREA Assistente**, uma solução web desenvolvida para a Telemedicina do Hospital das Clínicas, com o propósito de:
 
-- **Interface mais moderna e responsiva**  
-  Reestruturação visual das páginas (Home, Agendar, Resultados e Contato) com Tailwind CSS, tipografia personalizada e design mais limpo.
+ Facilitar o agendamento de consultas e exames  
+ Garantir mais acessibilidade e autonomia ao paciente  
+ Reduzir o absenteísmo em até **20% → 10%**  
+ Melhorar acompanhamento, resultados e comunicação digital
 
-- **Integração de novas seções e fluxos**  
-  Inclusão de equipe com links para LinkedIn/GitHub, melhoria nos modais e melhor organização de rotas.
+O sistema une:
 
-- **Base sólida para integrações futuras**  
-  Código pronto para evoluir com banco de dados, autenticação real e recursos de teleconsulta.
-
----
-
-### Equipe
-
-- **Bruno Vinicius Barbosa** — 566366 / 1TDSPY  
-  [LinkedIn](https://www.linkedin.com/in/brunovbarbosaa) • [GitHub](https://github.com/brunovinicius02)
-
-- **João Pedro Bitencourt Goldoni** — 564339 / 1TDSPX  
-  [LinkedIn](https://www.linkedin.com/in/joaopedrogoldoni) • [GitHub](https://github.com/JoaoPedroBitencourtGoldoni)
-
-- **Marina Tamagnini Magalhães** — 561786 / 1TDSPX  
-  [LinkedIn](https://www.linkedin.com/in/marina-t-36b14328b) • [GitHub](https://github.com/marina-2907/marina)
-  
----
-
-## Funcionalidades Atualizadas
-
--  **Autenticação (mock)**  
-  Área de login simples para simulação de acesso seguro.
-
-- **Agendamento avançado**  
-  - Escolha entre **Consulta** ou **Exame**  
-  - Seleção de **modalidade**: Presencial ou Telemedicina  
-  - Validação automática de horários disponíveis (07h às 18h)  
-  - Confirmação visual e listagem de agendamentos feitos.
-
-- **Chat com Profissionais**  
-  Modal para simulação de conversas e orientações.
-
-- **Resultados Online**  
-  Consulta de exames, laudos e receitas de maneira prática.
-
-- **Interface e navegação aprimoradas**  
-  - Header responsivo com menu mobile (hambúrguer) e botão de login.  
-  - Hero com vídeo de fundo, textos alinhados e rolagem suave para a seção “Sobre Nós”.  
-  - Seções “Sobre Nós”, “Serviços” e “Equipe” mais atraentes.
+**Front-end em React** 
+**API Java**  
+**Banco de Dados Oracle** 
 
 ---
 
-## Estrutura principal do Projeto
+##  Evoluções da Sprint Final
 
-chellange-sprint-03/
-├─ public/ # Imagens e Videos
-├─ src/
-│ ├─ components/ # Componentes reutilizáveis (Carousel, Footer, FormField, Header e Modal.)
-│ ├─ hooks/ # ( useForm. )
-│ ├─ pages/ # Páginas principais (Home, Agendar, Chat, Contato, Login, Resultados FAQ e Integrantes.)
-│ ├─ App.tsx # Componente raiz da aplicação
-│ ├─ main.tsx # Ponto de entrada da aplicação
-│ └─ index.css # Estilos globais (TailwindCSS)
-├─ package.json # Dependências e scripts
-└─ vite.config.ts # Configuração do Vite
+| Recurso | Status |
+|--------|:-----:|
+| Autenticação de paciente |  Mock + validações |
+| Agendamentos integrados com BD Oracle |  Inserir, listar, editar e excluir |
+| Validação de horários e modalidades | Presencial / Telemedicina |
+| Consulta de Resultados |  Com filtro e atualização |
+| Chat informativo com profissionais |  Simulação |
+| UI responsiva e acessível |  Tailwind + Navegação fluida |
 
 ---
 
-## Instalação e Execução
+##  Arquitetura Geral
 
-###  Pré-requisitos
-- [Node.js](https://nodejs.org/) (versão LTS recomendada)  
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+React (Vite + Tailwind) → API Flask → Oracle Database
 
-###  Clonar o repositório
-```
-bash
-git clone https://github.com/marina-2907/challenge-sprint-03.git
-cd challenge-sprint-03
- Instalar dependências
-bash
+yaml
 Copiar código
+
+Comunicação via endpoints REST  
+Scripts SQL desenvolvidos para criação e carga de dados
+
+---
+
+##  Tecnologias Utilizadas
+
+| Camada | Tecnologias |
+|--------|-------------|
+| Front-end | React + Vite + TypeScript + TailwindCSS |
+| Back-end | java |
+| Banco de Dados | Oracle Cloud (SQL + PL/SQL + DDL + DML) |
+| Controle de Versão | Git + GitHub |
+| Design | UX Responsivo + Acessibilidade |
+
+---
+
+## 🗂 Estrutura do Projeto
+
+bash
+challenge-sprint-04/
+├─ frontend/ (React)
+│  ├─ src/pages/
+│  ├─ src/components/
+│  └─ ...
+└─ backend/ (Flask API)
+   ├─ app.js
+   ├─ database/
+   └─ ...
+ Separação profissional entre Front e API
+
+▶️ Instalação e Execução
+🔹 1️⃣ Rodar Frontend
+sh
+Copiar código
+cd CHALLENGE-SPRINT-04
 npm install
- Executar em modo desenvolvimento
-bash
-Copiar código
 npm run dev
-O sistema estará disponível em http://localhost:5173.
-```
+➡️ Acesse: http://localhost:5173
 
-## Links Importantes
+🔹 2️⃣ Rodar API Python
+sh
+Copiar código
+cd backend
+python app.py
+➡️ API local: http://localhost:8080
 
-- 📹 **Vídeo de Apresentação**: [Assista no YouTube](https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4)  
-- 💻 **Repositório no GitHub**: [challenge-sprint-03](https://github.com/marina-2907/challenge-sprint-03)
+ Certifique-se de ter o driver oracledb instalado e conexão ativa com o Oracle.
+
+Banco de Dados
+Scripts DDL e DML inclusos no repositório
+
+Tabelas principais:
+
+TB_PACIENTE
+
+TB_CONSULTA
+
+TB_RECEITA
+
+TB_LOGIN
+
+- Primary Keys, Foreign Keys, unique e validador de datas e horários
+
+ - Equipe
+Nome	------------------------- RM --- Turma ----------- GitHub ------------------------------------ LinkedIn
+Bruno Vinicius Barbosa	      566366	 1TDSPY	   github.com/brunovinicius02	              linkedin.com/in/brunovbarbosaa
+João Pedro Bitencourt Goldoni	564339	 1TDSPX	   github.com/JoaoPedroBitencourtGoldoni	  linkedin.com/in/joaopedrogoldoni
+Marina Tamagnini Magalhães	  561786	 1TDSPX	   github.com/marina-2907	                  linkedin.com/in/marina-t-36b14328b
+
+📎 Links Importantes
+🔹 Repositório: https://github.com/marina-2907/challenge-sprint-03
+🎥 Vídeo de Apresentação: https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
 
 
 
