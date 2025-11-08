@@ -53,34 +53,36 @@ Scripts SQL desenvolvidos para criação e carga de dados
 | Controle de Versão | Git + GitHub |
 | Design | UX Responsivo + Acessibilidade |
 
-
+---
 
 ## 🗂 Estrutura do Projeto
 
 challenge-sprint-04/
 ├─ frontend/ (React)
-│  ├─ src/pages/
-│  ├─ src/components/
-│  └─ ...
+│ ├─ src/pages/
+│ ├─ src/components/
+│ └─ ...
 └─ backend/ (Flask API)
-   ├─ app.js
-   ├─ database/
-   └─ ...
+├─ app.js
+├─ database/
+└─ ...
+
+yaml
+Copiar código
 Separação profissional entre Front e API.
 
+---
 
+## ▶️ Instalação e Execução
 
-▶️ Instalação e Execução
-🔹1️⃣ Rodar Frontend
+### 🔹 1️⃣ Rodar Frontend
 bash
-Copiar código
-cd CHALLENGE-SPRINT-04
+cd challenge-sprint-04
 npm install
 npm run dev
 ➡️ Acesse: http://localhost:5173
 
-
-## Banco de Dados
+🧩 Banco de Dados
 Scripts DDL e DML inclusos no repositório.
 Tabelas principais:
 
@@ -94,26 +96,21 @@ TB_LOGIN
 
 Com Primary Keys, Foreign Keys, Unique e validadores de datas/horários.
 
-## Equipe
+👥 Equipe
+👤 Nome	🆔 RM	🎓 Turma	💻 GitHub	💼 LinkedIn
+Bruno Vinicius Barbosa	566366	1TDSPY	github.com/brunovinicius02	linkedin.com/in/brunovbarbosaa
+João Pedro Bitencourt Goldoni	564339	1TDSPX	github.com/JoaoPedroBitencourtGoldoni	linkedin.com/in/joaopedrogoldoni
+Marina Tamagnini Magalhães	561786	1TDSPX	github.com/marina-2907	linkedin.com/in/marina-t-36b14328b
 
+🔗 Links Importantes
+🔹 Repositório GitHub:
+▶️ https://github.com/marina-2907/challenge-sprint-04
 
-|  Nome |  RM |  Turma |  GitHub |  LinkedIn |
-|:--------|:------:|:---------:|:-----------:|:-------------:|
-| **Bruno Vinicius Barbosa** | 566366 | 1TDSPY | [github.com/brunovinicius02](https://github.com/brunovinicius02) | [linkedin.com/in/brunovbarbosaa](https://linkedin.com/in/brunovbarbosaa) |
-| **João Pedro Bitencourt Goldoni** | 564339 | 1TDSPX | [github.com/JoaoPedroBitencourtGoldoni](https://github.com/JoaoPedroBitencourtGoldoni) | [linkedin.com/in/joaopedrogoldoni](https://linkedin.com/in/joaopedrogoldoni) |
-| **Marina Tamagnini Magalhães** | 561786 | 1TDSPX | [github.com/marina-2907](https://github.com/marina-2907) | [linkedin.com/in/marina-t-36b14328b](https://linkedin.com/in/marina-t-36b14328b) |
+🔹 Deploy Online (Site na Vercel):
+🌍 https://imrea-assistente.vercel.app
 
+🔹 Projeto no Painel da Vercel (Dashboard):
+🧩 https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04
 
-## 🔗 Links Importantes
-
-- 🔹 **Repositório GitHub:**  
-  ▶️ [https://github.com/marina-2907/challenge-sprint-04](https://github.com/marina-2907/challenge-sprint-04)
-
-- 🔹 **Deploy Online (Site na Vercel):**  
-  ▶️ [imrea-assistente.vercel.app](imrea-assistente.vercel.app)
-
-- 🔹 **Projeto no Painel da Vercel (Dashboard):**  
-  ▶️[https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04](https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04)
-
-- 🔹 **Vídeo de Apresentação (YouTube):**  
-  ▶️ [https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4](https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4)
+🔹 Vídeo de Apresentação (YouTube):
+▶️ https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
