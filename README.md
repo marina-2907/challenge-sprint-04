@@ -68,23 +68,16 @@ challenge-sprint-04/
    └─ ...
 Separação profissional entre Front e API.
 
+
+
 ▶️ Instalação e Execução
-🔹 1️⃣ Rodar Frontend
+🔹1️⃣ Rodar Frontend
 bash
 Copiar código
 cd CHALLENGE-SPRINT-04
 npm install
 npm run dev
 ➡️ Acesse: http://localhost:5173
-
-🔹 2️⃣ Rodar API Python
-bash
-Copiar código
-cd backend
-python app.py
-➡️ API local: http://localhost:8080
-
-Certifique-se de ter o driver oracledb instalado e conexão ativa com o Oracle.
 
 
 ## Banco de Dados
