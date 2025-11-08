@@ -113,7 +113,7 @@ Com Primary Keys, Foreign Keys, Unique e validadores de datas/horários.
   ▶️ [https://challenge-sprint-04.vercel.app](https://challenge-sprint-04.vercel.app)
 
 - 🔹 **Projeto no Painel da Vercel (Dashboard):**  
-  ▶️ [https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04](https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04)
+  ▶️[https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04](https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04)
 
 - 🔹 **Vídeo de Apresentação (YouTube):**  
   ▶️ [https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4](https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4)
