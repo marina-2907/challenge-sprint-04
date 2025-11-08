@@ -110,7 +110,7 @@ Com Primary Keys, Foreign Keys, Unique e validadores de datas/horários.
   ▶️ [https://github.com/marina-2907/challenge-sprint-04](https://github.com/marina-2907/challenge-sprint-04)
 
 - 🔹 **Deploy Online (Site na Vercel):**  
-  ▶️ [https://challenge-sprint-04.vercel.app](https://challenge-sprint-04.vercel.app)
+  ▶️ [imrea-assistente.vercel.app](imrea-assistente.vercel.app)
 
 - 🔹 **Projeto no Painel da Vercel (Dashboard):**  
   ▶️[https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04](https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04)
