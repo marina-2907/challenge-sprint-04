@@ -11,22 +11,13 @@ export function Header() {
       location.pathname === path
         ? "text-orange-400 after:w-full after:bg-orange-400"
         : "hover:text-orange-300 after:w-0 after:bg-white"
-    }
-    after:absolute after:h-[2px] after:bottom-0 after:left-0 after:transition-all after:duration-300`;
+    } after:absolute after:h-[2px] after:bottom-0 after:left-0 after:transition-all after:duration-300`;
 
   return (
     <header className="font-sans bg-[#01014d] text-white shadow-xl sticky top-0 z-50 backdrop-blur-lg border-b border-white/10">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-        {/* LOGOS */}
-        <div className="flex items-center gap-4">
-          <Link to="/" className="flex-shrink-0 hover:opacity-80 transition">
-            <img src="public/imgs/image imrea 2.png" className="h-10" />
-          </Link>
-          <Link to="/" className="flex-shrink-0 hover:opacity-80 transition">
-            <img src="public/imgs/NOVO-LOGO-HC-2022.png" className="h-10" />
-          </Link>
-        </div>
+    
 
         {/* NAV DESKTOP */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide">
@@ -52,6 +43,7 @@ export function Header() {
         <button
           onClick={() => setMenuOpen(true)}
           className="md:hidden text-2xl hover:text-orange-400 transition"
+          aria-label="Abrir menu"
         >
           <FaBars />
         </button>
@@ -61,11 +53,10 @@ export function Header() {
       {menuOpen && (
         <div className="fixed inset-0 z-50 flex">
           <div className="fixed inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-          <div className="ml-auto w-72 h-full bg-[#111] shadow-2xl p-6 flex flex-col border-l border-white/10 animate-slide-in">
-
+          <div className="ml-auto w-72 h-full bg-[#111] shadow-2xl p-6 flex flex-col border-l border-white/10">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-xl font-bold tracking-wide text-white">MENU</h2>
-              <button onClick={() => setMenuOpen(false)} className="text-2xl hover:text-orange-400 transition">
+              <button onClick={() => setMenuOpen(false)} className="text-2xl hover:text-orange-400 transition" aria-label="Fechar menu">
                 <FaTimes />
               </button>
             </div>
@@ -82,6 +73,7 @@ export function Header() {
               <Link
                 to="/login"
                 className="mt-4 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md text-sm font-semibold transition"
+                onClick={() => setMenuOpen(false)}
               >
                 <FaUserCircle className="text-xl" />
                 <span>ENTRAR</span>
