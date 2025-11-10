@@ -24,7 +24,7 @@ export function Header() {
             <img src="public/imgs/image imrea 2.png" className="h-10" />
           </Link>
           <Link to="/" className="flex-shrink-0 hover:opacity-80 transition">
-            <img src="/imgs/NOVO-LOGO-HC-2022.png" className="h-10" />
+            <img src="public/imgs/NOVO-LOGO-HC-2022.png" className="h-10" />
           </Link>
         </div>
 
