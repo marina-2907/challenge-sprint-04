@@ -82,6 +82,53 @@ npm install
 npm run dev
 ➡️ Acesse: http://localhost:5173
 
+Como Rodar a API (Java – Spring Boot)
+
+✅ 1️⃣ Pré-requisitos
+Antes de iniciar, certifique-se de ter instalado:
+Java 17+
+Maven (versão 3.8+)
+Porta 8080 disponível no seu computador
+
+▶️ 2️⃣ Rodando o Servidor Java
+
+No terminal, entre na pasta do backend:
+
+cd backend-java
+
+Em seguida, execute:
+
+mvn clean install
+
+mvn spring-boot:run
+
+java -jar target/api-imrea-java-0.0.1-SNAPSHOT.jar
+🌐 3️⃣ API disponível
+Quando o servidor iniciar, ele ficará disponível em:
+http://localhost:8080/api
+
+📡 4️⃣ Endpoints principais
+🔹 Consultas / Agendamentos
+GET    /api/agendamentosPOST   /api/agendamentosGET    /api/agendamentos/telefone/{telefone}
+
+🔹 Dados do Paciente
+GET    /api/paciente-dados/telefone/{telefone}
+
+🔹 Pacientes (compatibilidade)
+GET    /api/pacientes
+GET    /api/pacientes/{id}
+POST   /api/pacientes
+
+🔹 Médicos (compatibilidade)
+GET    /api/medicos
+GET    /api/medicos/{id}
+GET    /api/medicos/especialidade/{especialidade}
+
+🎯 5️⃣ Integração com o Front-end
+O front consome automaticamente a API usando a variável:
+VITE_API_URL=http://localhost:8080/api
+
+
 🧩 Banco de Dados
 Scripts DDL e DML inclusos no repositório.
 Tabelas principais:
@@ -102,16 +149,12 @@ Bruno Vinicius Barbosa	566366	1TDSPY	github.com/brunovinicius02	linkedin.com/in/
 João Pedro Bitencourt Goldoni	564339	1TDSPX	github.com/JoaoPedroBitencourtGoldoni	linkedin.com/in/joaopedrogoldoni
 Marina Tamagnini Magalhães	561786	1TDSPX	github.com/marina-2907	linkedin.com/in/marina-t-36b14328b
 
-🔗 Links Importantes
-🔹 Repositório GitHub:
-▶️ https://github.com/marina-2907/challenge-sprint-04
+🔗 Links Importantes 
 
-🔹 Deploy Online (Site na Vercel):
-🌍 https://challenge-sprint-04-entrega.vercel.app/
+🔹 Repositório GitHub: ▶️ https://github.com/marina-2907/challenge-sprint-04
 
-🔹 Projeto no Painel da Vercel (Dashboard):
-🧩 https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04
+🔹 Deploy Online (Site na Vercel): 🌍 https://challenge-sprint-04-entrega.vercel.app/
 
-🔹 Vídeo de Apresentação (YouTube):
-▶️ https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
+🔹 Projeto no Painel da Vercel (Dashboard): 🧩 https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04
 
+🔹 Vídeo de Apresentação (YouTube): ▶️ https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
