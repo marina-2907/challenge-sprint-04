@@ -107,10 +107,11 @@ Marina Tamagnini Magalhães	561786	1TDSPX	github.com/marina-2907	linkedin.com/in
 ▶️ https://github.com/marina-2907/challenge-sprint-04
 
 🔹 Deploy Online (Site na Vercel):
-🌍 https://imrea-assistente.vercel.app
+🌍 https://challenge-sprint-04-entrega.vercel.app/
 
 🔹 Projeto no Painel da Vercel (Dashboard):
 🧩 https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04
 
 🔹 Vídeo de Apresentação (YouTube):
 ▶️ https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
+
