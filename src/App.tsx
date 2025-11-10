@@ -9,8 +9,8 @@ export default function App() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setReady(true), 150);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setReady(true), 150);
+    return () => clearTimeout(t);
   }, []);
 
   const element = useRoutes(routes);
@@ -18,14 +18,15 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-brand-10 to-white">
       <Header />
-      <main>
+      <main className="flex-1">
         {ready ? (
           element
         ) : (
           <p className="text-center text-gray-500">Carregando...</p>
         )}
       </main>
-     <Footer />
+      <Footer />
     </div>
   );
 }
+
