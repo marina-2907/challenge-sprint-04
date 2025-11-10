@@ -153,10 +153,28 @@ TB_LOGIN
 validação de horários, chaves primárias, FKs, UNIQUE, CHECK etc.
 
 👥 Equipe
-Nome	RM	Turma	GitHub	LinkedIn
-Bruno Vinicius Barbosa	566366	1TDSPY	github.com/brunovinicius02	linkedin.com/in/brunovbarbosaa
-João Pedro Bitencourt Goldoni	564339	1TDSPX	github.com/JoaoPedroBitencourtGoldoni	linkedin.com/in/joaopedrogoldoni
-Marina Tamagnini Magalhães	561786	1TDSPX	github.com/marina-2907	linkedin.com/in/marina-t-36b14328b
+▸ Bruno Vinicius Barbosa
+
+RM: 566366
+Turma: 1TDSPY
+GitHub: github.com/brunovinicius02
+LinkedIn: linkedin.com/in/brunovbarbosaa
+
+▸ João Pedro Bitencourt Goldoni
+
+RM: 564339
+Turma: 1TDSPX
+GitHub: github.com/JoaoPedroBitencourtGoldoni
+LinkedIn: linkedin.com/in/joaopedrogoldoni
+
+▸ Marina Tamagnini Magalhães
+
+RM: 561786
+Turma: 1TDSPX
+GitHub: github.com/marina-2907
+LinkedIn: linkedin.com/in/marina-t-36b14328b
+
+
 🔗 Links Importantes
 
 🔹 Repositório GitHub:
