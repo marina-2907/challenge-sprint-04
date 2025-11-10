@@ -186,8 +186,5 @@ https://github.com/marina-2907/challenge-sprint-04
 🔹 Deploy Online (Vercel):
 https://challenge-sprint-04-entrega.vercel.app/
 
-🔹 Dashboard da Vercel:
-https://vercel.com/marina-tamagnini-magalhaes-projects/challenge-sprint-04
-
 🔹 Vídeo da Apresentação:
 https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
