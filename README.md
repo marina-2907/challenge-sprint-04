@@ -187,4 +187,4 @@ https://github.com/marina-2907/challenge-sprint-04
 https://challenge-sprint-04-entrega.vercel.app/
 
 🔹 Vídeo da Apresentação:
-https://youtu.be/7Qk0hgxOw0Y?si=LolBu9mRVVotEOq4
+https://youtu.be/AxuikJiuQAM
